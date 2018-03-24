@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10.0)
 
-include_directories(include)
+include_directories(include libpll)
 
 file(GLOB SOURCES "src/*.cpp")
 

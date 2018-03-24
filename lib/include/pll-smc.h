@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <libpll/pll.h>
+
 std::string library_test();
 
 #endif
