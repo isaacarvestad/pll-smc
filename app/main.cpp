@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "pll-smc.h"
+#include "pll_smc.h"
 
 int main() {
   std::cout << "Hello world!" << std::endl;

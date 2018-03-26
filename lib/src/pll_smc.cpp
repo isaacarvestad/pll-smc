@@ -1,4 +1,4 @@
-#include "pll-smc.h"
+#include "pll_smc.h"
 
 std::vector<Particle> create_particles(const unsigned int count,
                                        const std::vector<std::string> sequences)
