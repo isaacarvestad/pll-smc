@@ -3,5 +3,5 @@
 #include "pll-smc.h"
 
 int main() {
-  std::cout << library_test() << std::endl;
+  std::cout << "Hello world!" << std::endl;
 }
