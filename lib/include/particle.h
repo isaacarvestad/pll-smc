@@ -17,7 +17,7 @@ class Particle {
   /**
      Constructs a particle with a weight and vector of sequences.
    */
-  Particle(double weight, const std::vector<std::string> sequences);
+  Particle(double weight, const std::vector<std::pair<std::string, std::string>> sequences);
 };
 
 #endif

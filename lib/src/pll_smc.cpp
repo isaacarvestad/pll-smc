@@ -1,7 +1,7 @@
 #include "pll_smc.h"
 
 std::vector<Particle> create_particles(const unsigned int count,
-                                       const std::vector<std::string> sequences)
+                                       const std::vector<std::pair<std::string, std::string>> sequences)
 {
   const double initial_weight = 1.0f / (double) count;
 
