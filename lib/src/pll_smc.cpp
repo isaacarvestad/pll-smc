@@ -20,29 +20,30 @@ std::vector<Particle> run_smc(std::vector<Particle> &particles,
                               const unsigned int iterations)
 {
   for (int i = 0; i < iterations; i++) {
-    double sum = 0.0f;
-    for (auto &p : particles) {
-      resample(p);
-      propose(p);
-
-      sum += p.weight;
-    }
-
-    for (auto &p : particles) {
-      normalize_weight(p, sum);
-    }
+    resample(particles);
+    propose(particles);
+    normalize_weights(particles);
   }
 
   return particles;
 }
 
-void resample(Particle &particle) {
+void resample(std::vector<Particle> &particles) {
 }
 
-void propose(Particle &particle) {
-  particle.propose();
+void propose(std::vector<Particle> &particles) {
+  for (auto &p : particles) {
+    p.propose();
+  }
 }
 
-void normalize_weight(Particle &particle, double sum) {
-  particle.weight /= sum;
+void normalize_weights(std::vector<Particle> &particles) {
+  double sum = 0.0f;
+  for (auto &p : particles) {
+    sum += p.weight;
+  }
+
+  for (auto &p : particles) {
+    p.weight /= sum;
+  }
 }

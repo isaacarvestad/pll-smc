@@ -26,17 +26,16 @@ std::vector<Particle> run_smc(std::vector<Particle> &particles,
 /**
    Resamples the particles based on their weights using multinomial resampling.
  */
-void resample(Particle &particle);
+void resample(std::vector<Particle> &particles);
 
 /**
-   Proposes an update to a partical using the particals propose method.
+   Proposes an update to a partical using the particals proposal method.
  */
-void propose(Particle &particle);
+void propose(std::vector<Particle> &particles);
 
 /**
-   Normalizes the weight of a particle where 'sum' is the sum of all partical
-   weights.
+   Normalizes the weight of the particle.
  */
-void normalize_weight(Particle &particle, double sum);
+void normalize_weights(std::vector<Particle> &particles);
 
 #endif
