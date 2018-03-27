@@ -6,22 +6,28 @@ Particle::Particle(double weight,
   : weight(weight),
     forest(sequences, sequence_lengths)
 {
+  std::random_device random;
+  mt_generator = std::mt19937(random());
 }
 
-void Particle::propose() {
+void Particle::propose(const double rate) {
   assert(forest.root_count() > 1 && "Cannot propose a continuation on a single root node");
 
-  std::random_device random;
-  std::uniform_int_distribution<int> dist(0, forest.root_count() - 1);
-  int i = dist(random);
+  std::uniform_int_distribution<int> int_dist(0, forest.root_count() - 1);
+  int i = (int) int_dist(mt_generator);
   int j = -1;
 
   while (j == -1) {
-    j = dist(random);
+    j = (int) int_dist(mt_generator);
     if (j == i) j = -1;
   }
 
-  pll_rnode_s* node = forest.connect(i, j, 1.0f, 1.0f);
+  std::exponential_distribution<> exponential_dist(rate);
+
+  double branch_length_left = exponential_dist(mt_generator);
+  double branch_length_right = exponential_dist(mt_generator);
+
+  pll_rnode_s* node = forest.connect(i, j, branch_length_left, branch_length_right);
 
   weight *= forest.likelihood_factor(node);
 }

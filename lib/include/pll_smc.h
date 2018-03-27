@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <random>
 #include <libpll/pll.h>
 
 #include "particle.h"
@@ -21,7 +22,7 @@ std::vector<Particle> create_particles(const unsigned int count,
    particles. Returns the resulting particles.
  */
 std::vector<Particle> run_smc(std::vector<Particle> &particles,
-                              const unsigned int iterations);
+                              const unsigned int sequence_count);
 
 /**
    Resamples the particles based on their weights using multinomial resampling.
@@ -30,8 +31,11 @@ void resample(std::vector<Particle> &particles);
 
 /**
    Proposes an update to a partical using the particals proposal method.
+
+   'rate' specifies the parameter used in sampling the exponentially distributed
+   branch lengths.
  */
-void propose(std::vector<Particle> &particles);
+void propose(std::vector<Particle> &particles, const double rate);
 
 /**
    Normalizes the weight of the particle.

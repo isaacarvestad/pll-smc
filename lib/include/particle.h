@@ -12,9 +12,11 @@
  */
 class Particle {
   PhyloForest forest;
+  std::mt19937 mt_generator;
 
  public:
   double weight;
+  double normalized_weight;
 
   /**
      Constructs a particle with a weight, a vector of sequences and the length
@@ -27,8 +29,11 @@ class Particle {
 
   /**
      Proposes an update to the particle by following the proposal distribution.
+
+     'rate' is used to create exponential distribution that the branch lengths
+     are sampled from.
    */
-  void propose();
+  void propose(const double rate);
 
   /**
      Returns the current roots of the particles forest.

@@ -157,7 +157,7 @@ double PhyloForest::likelihood_factor(pll_rnode_s* root) {
   double l_left = pll_compute_root_loglikelihood(partition, root->left->clv_index, 0, parameter_indices, NULL);
   double l_right = pll_compute_root_loglikelihood(partition, root->right->clv_index, 0, parameter_indices, NULL);
 
-  return l_merged / (l_left * l_right);
+  return exp(l_merged - (l_left + l_right));
 }
 
 void PhyloForest::remove_roots(int i, int j) {
