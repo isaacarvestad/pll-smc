@@ -146,11 +146,18 @@ pll_rnode_s* PhyloForest::connect(int i, int j, double b1, double b2) {
 }
 
 /**
-   TODO: currently only computes likelihood of root.
+   TODO: compute q and delta
  */
 double PhyloForest::likelihood_factor(pll_rnode_s* root) {
+  assert(root->left && root->right && "Root cannot be a leaf");
+
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
-  return pll_compute_root_loglikelihood(partition, root->clv_index, 0, parameter_indices, NULL);
+
+  double l_merged = pll_compute_root_loglikelihood(partition, root->clv_index, 0, parameter_indices, NULL);
+  double l_left = pll_compute_root_loglikelihood(partition, root->left->clv_index, 0, parameter_indices, NULL);
+  double l_right = pll_compute_root_loglikelihood(partition, root->right->clv_index, 0, parameter_indices, NULL);
+
+  return l_merged / (l_left * l_right);
 }
 
 void PhyloForest::remove_roots(int i, int j) {
