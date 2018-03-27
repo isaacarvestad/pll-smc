@@ -23,6 +23,9 @@ class PhyloForest {
    */
   void setup_pll(const unsigned int leaf_node_count, const unsigned int sequence_lengths);
 
+  /**
+     Sets the sequences of the partition.
+   */
   void setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
                            const unsigned int sequence_lengths);
 
@@ -33,6 +36,7 @@ class PhyloForest {
   void remove_roots(int i, int j);
 
  public:
+
   /**
      Creates a PhyloForest instance using a vector of pairs of (label, sequence)
      and a constant specifying a length of every sequence.
@@ -52,7 +56,19 @@ class PhyloForest {
    */
   pll_rnode_s* connect(int i, int j, double b1, double b2);
 
+  /**
+     Computes the likelihood factor (see equation 2.31)
+   */
+  double likelihood_factor(pll_rnode_s* root);
+
+  /**
+     Return the current root nodes of the forrest.
+   */
   std::vector<pll_rnode_s*> get_roots() { return roots; }
+
+  /**
+     Number of root nodes in the forrest.
+   */
   unsigned int root_count() { return roots.size(); }
 };
 

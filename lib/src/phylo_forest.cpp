@@ -1,7 +1,8 @@
 #include "phylo_forest.h"
 
 
-PhyloForest::PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences, const unsigned int sequence_lengths) {
+PhyloForest::PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
+                         const unsigned int sequence_lengths) {
   setup_pll(sequences.size(), sequence_lengths);
   setup_sequences_pll(sequences, sequence_lengths);
 }
@@ -59,7 +60,7 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
     pll_set_tip_states(partition, i, pll_map_nt, sequence.data());
 
     pll_rnode_s * node = new pll_rnode_s
-      { .label = &label[0u],
+      { .label = strdup(label.c_str()),
         .length = 0.0f,
         .node_index = forest_node_count,
         .clv_index = forest_node_count,
@@ -142,6 +143,14 @@ pll_rnode_s* PhyloForest::connect(int i, int j, double b1, double b2) {
   pll_update_partials(partition, operations, 1);
 
   return combined;
+}
+
+/**
+   TODO: currently only computes likelihood of root.
+ */
+double PhyloForest::likelihood_factor(pll_rnode_s* root) {
+  unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
+  return pll_compute_root_loglikelihood(partition, root->clv_index, 0, parameter_indices, NULL);
 }
 
 void PhyloForest::remove_roots(int i, int j) {
