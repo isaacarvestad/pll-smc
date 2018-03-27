@@ -9,6 +9,8 @@ Particle::Particle(double weight,
 }
 
 void Particle::propose() {
+  assert(forest.root_count() > 1 && "Cannot propose a continuation on a single root node");
+
   std::random_device random;
   std::uniform_int_distribution<int> dist(0, forest.root_count() - 1);
   int i = dist(random);
