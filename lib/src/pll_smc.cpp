@@ -68,9 +68,9 @@ void resample(std::vector<Particle*> &particles) {
          return a->normalized_weight > b->normalized_weight;
        });
 
-  for (int i = 10; i < particles.size(); i++) {
+  for (int i = 100; i < particles.size(); i++) {
     delete(particles[i]);
-    particles[i] = new Particle(*particles[i % 10]);
+    particles[i] = new Particle(*particles[i % 100]);
   }
 }
 
