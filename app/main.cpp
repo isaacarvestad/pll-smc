@@ -40,14 +40,14 @@ int main() {
   Particle* particle = nullptr;
   double max = -DBL_MAX;
   for (auto &p : particles) {
-    if (p->weight > max) {
-      max = p->weight;
+    if (exp(p->log_weight) > max) {
+      max = exp(p->log_weight);
       particle = p;
     }
   }
   std::cout << std::endl;
 
-  std::cout << "Weight: " << particle->weight << ", normalized weight: " << particle->normalized_weight << std::endl;
+  std::cout << "Weight: " << exp(particle->log_weight) << ", normalized weight: " << particle->normalized_weight << std::endl;
 
   assert(particle->get_roots().size() == 1);
   print_tree(particle->get_roots()[0]);

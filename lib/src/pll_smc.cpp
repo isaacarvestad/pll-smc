@@ -42,6 +42,7 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
   std::cerr << "Running SMC with " << iterations << " iterations" << std::endl;
 
   for (int i = 0; i < iterations; i++) {
+    std::cerr << "Iteration " << i << std::endl;
     double rate = approx_rate(i - sequence_count + 1);
 
     resample(particles);
@@ -82,10 +83,10 @@ void propose(std::vector<Particle*> &particles, const double rate) {
 void normalize_weights(std::vector<Particle*> &particles) {
   double sum = 0.0;
   for (auto &p : particles) {
-    sum += p->weight;
+    sum += exp(p->log_weight);
   }
 
   for (auto &p : particles) {
-    p->normalized_weight = p->weight / sum;
+    p->normalized_weight = exp(p->log_weight) / sum;
   }
 }

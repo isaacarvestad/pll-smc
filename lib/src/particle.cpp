@@ -3,7 +3,7 @@
 Particle::Particle(double weight,
                    const std::vector<std::pair<std::string, std::string>> sequences,
                    const unsigned int sequence_lengths)
-  : weight(weight)
+  : log_weight(log(weight))
 {
   forest = new PhyloForest(sequences, sequence_lengths);
 
@@ -41,5 +41,5 @@ void Particle::propose(const double rate) {
 
   pll_rnode_s* node = forest->connect(i, j, branch_length_left, branch_length_right);
 
-  weight *= forest->likelihood_factor(node);
+  log_weight += forest->likelihood_factor(node);
 }
