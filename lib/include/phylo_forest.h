@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
-#include "libpll/pll.h"
+#include <libpll/pll.h>
+
+#include "partition_manager.h"
 
 /**
    A PhyloForest contains a pointer to a 'pll_partition_t', keeps track of pll
@@ -15,7 +17,8 @@ class PhyloForest {
   unsigned int forest_node_count = 0;
   unsigned int forest_internal_node_count = 0;
 
-  pll_partition_t * partition;
+  PartitionManager* partition_manager;
+
   std::vector<pll_rnode_s*> roots;
 
   /**
@@ -35,6 +38,11 @@ class PhyloForest {
    */
   void remove_roots(int i, int j);
 
+  /**
+     Recursively destroys a tree starting from the root.
+   */
+  void destroy_tree(pll_rnode_s* root);
+
  public:
 
   /**
@@ -43,6 +51,17 @@ class PhyloForest {
    */
   PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
               const unsigned int sequence_lengths);
+
+  /**
+     Copy constructor
+   */
+  PhyloForest(const PhyloForest &original);
+
+  /**
+     Remove PLL partition. Does not delete the root vector trees since they may
+     be needed by other particles. This will leak memory.
+   */
+  ~PhyloForest();
 
   /**
      Connects two root nodes with index i and j respectively in the root vector
@@ -64,12 +83,17 @@ class PhyloForest {
   /**
      Return the current root nodes of the forrest.
    */
-  std::vector<pll_rnode_s*> get_roots() { return roots; }
+  std::vector<pll_rnode_s*> get_roots() const { return roots; }
+
+  /**
+     Returns a pointer to the partition manager.
+   */
+  const PartitionManager* get_partition_manager() const { return partition_manager; };
 
   /**
      Number of root nodes in the forrest.
    */
-  unsigned int root_count() { return roots.size(); }
+  unsigned int root_count() const { return roots.size(); }
 };
 
 #endif

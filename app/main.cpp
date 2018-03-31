@@ -34,15 +34,15 @@ int main() {
       {"H16", "ATCCCTCTTACAAGCCTTTCCAGTCCATGGGGCTGAGTAAAATAGACAGTGCCTCGCGCGAGCACGGAGAATCTAATCATGAACCCCTCCGTCCTTCCGC"},
     };
 
-  std::vector<Particle> particles = create_particles(10000, sequences);
-  particles = run_smc(particles, sequences.size());
+  std::vector<Particle*> particles = create_particles(1000, sequences);
+  run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
   double max = -DBL_MAX;
   for (auto &p : particles) {
-    if (p.weight > max) {
-      max = p.weight;
-      particle = &p;
+    if (p->weight > max) {
+      max = p->weight;
+      particle = p;
     }
   }
   std::cout << std::endl;

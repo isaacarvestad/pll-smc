@@ -11,7 +11,7 @@
    An SMC particle contains a weight as well as an underlying forest state.
  */
 class Particle {
-  PhyloForest forest;
+  PhyloForest* forest;
   std::mt19937 mt_generator;
 
  public:
@@ -26,6 +26,16 @@ class Particle {
            const std::vector<std::pair<std::string, std::string>> sequences,
            const unsigned int sequence_lengths);
 
+  /**
+     Copy constructor. Copies the particles forest but creates a new random
+     generator.
+   */
+  Particle(const Particle &original);
+
+  /**
+     Frees the particle.
+   */
+  ~Particle();
 
   /**
      Proposes an update to the particle by following the proposal distribution.
@@ -38,7 +48,12 @@ class Particle {
   /**
      Returns the current roots of the particles forest.
    */
-  std::vector<pll_rnode_s*> get_roots() { return forest.get_roots(); };
+  std::vector<pll_rnode_s*> get_roots() const { return forest->get_roots(); };
+
+  /**
+     Returns the particles forest.
+   */
+  PhyloForest* get_forest() const { return forest; };
 };
 
 #endif

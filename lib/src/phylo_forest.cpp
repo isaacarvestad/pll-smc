@@ -1,10 +1,27 @@
 #include "phylo_forest.h"
 
-
 PhyloForest::PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
                          const unsigned int sequence_lengths) {
   setup_pll(sequences.size(), sequence_lengths);
   setup_sequences_pll(sequences, sequence_lengths);
+}
+
+PhyloForest::PhyloForest(const PhyloForest &original) {
+  forest_branch_count = original.forest_branch_count;
+  forest_node_count = original.forest_node_count;
+  forest_internal_node_count = original.forest_internal_node_count;
+
+  partition_manager = new PartitionManager(*original.get_partition_manager());
+
+  for (auto &r : original.get_roots()) {
+    pll_rnode_s* root = new pll_rnode_s;
+    *root = *r;
+    roots.push_back(root);
+  }
+}
+
+PhyloForest::~PhyloForest() {
+  delete(partition_manager);
 }
 
 void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned int sequence_lengths) {
@@ -34,20 +51,20 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
   double substitution_parameters[6] = { 1, 1, 1, 1, 1, 1 };
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
-  partition = pll_partition_create(leaf_node_count,
-                                   inner_node_count,
-                                   nucleotide_states,
-                                   sequence_lengths,
-                                   substitution_model_count,
-                                   // One probability matrix per branch
-                                   branch_count,
-                                   rate_category_count,
-                                   scale_buffer_count,
-                                   PLL_ATTRIB_ARCH_AVX);
+  partition_manager = new PartitionManager(leaf_node_count,
+                                           inner_node_count,
+                                           nucleotide_states,
+                                           sequence_lengths,
+                                           substitution_model_count,
+                                           branch_count,
+                                           rate_category_count,
+                                           scale_buffer_count,
+                                           PLL_ATTRIB_ARCH_AVX);
+  assert(partition_manager);
 
-  pll_set_frequencies(partition, 0, nucleotide_frequencies);
-  pll_set_subst_params(partition, 0, substitution_parameters);
-  pll_set_category_rates(partition, rate_categories);
+  pll_set_frequencies(partition_manager->get_partition(), 0, nucleotide_frequencies);
+  pll_set_subst_params(partition_manager->get_partition(), 0, substitution_parameters);
+  pll_set_category_rates(partition_manager->get_partition(), rate_categories);
 }
 
 void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
@@ -57,7 +74,7 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
     std::string label = sequences[i].first;
     std::string sequence = sequences[i].second;
 
-    pll_set_tip_states(partition, i, pll_map_nt, sequence.data());
+    pll_set_tip_states(partition_manager->get_partition(), i, pll_map_nt, sequence.data());
 
     pll_rnode_s * node = new pll_rnode_s
       { .label = strdup(label.c_str()),
@@ -134,13 +151,13 @@ pll_rnode_s* PhyloForest::connect(int i, int j, double b1, double b2) {
 
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
-  pll_update_prob_matrices(partition,
+  pll_update_prob_matrices(partition_manager->get_partition(),
                            parameter_indices,
                            matrix_indices,
                            branch_lengths,
                            2);
 
-  pll_update_partials(partition, operations, 1);
+  pll_update_partials(partition_manager->get_partition(), operations, 1);
 
   return combined;
 }
@@ -153,14 +170,17 @@ double PhyloForest::likelihood_factor(pll_rnode_s* root) {
 
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
-  double l_merged = pll_compute_root_loglikelihood(partition, root->clv_index, root->scaler_index,
+  double l_merged = pll_compute_root_loglikelihood(partition_manager->get_partition(),
+                                                   root->clv_index, root->scaler_index,
                                                    parameter_indices, NULL);
-  double l_left = pll_compute_root_loglikelihood(partition, root->left->clv_index, root->left->scaler_index,
+  double l_left = pll_compute_root_loglikelihood(partition_manager->get_partition(),
+                                                 root->left->clv_index, root->left->scaler_index,
                                                  parameter_indices, NULL);
-  double l_right = pll_compute_root_loglikelihood(partition, root->right->clv_index, root->right->scaler_index,
+  double l_right = pll_compute_root_loglikelihood(partition_manager->get_partition(),
+                                                  root->right->clv_index, root->right->scaler_index,
                                                   parameter_indices, NULL);
 
-  return exp(l_merged - (l_left + l_right));
+  return l_merged - (l_left + l_right);
 }
 
 void PhyloForest::remove_roots(int i, int j) {
@@ -175,4 +195,13 @@ void PhyloForest::remove_roots(int i, int j) {
     roots.erase(roots.begin() + i, roots.begin() + i + 1);
     roots.erase(roots.begin() + j, roots.begin() + j + 1);
   }
+}
+
+void PhyloForest::destroy_tree(pll_rnode_s* root) {
+  pll_rnode_s* left = root->left;
+  pll_rnode_s* right = root->right;
+
+  delete(root);
+  if (left) destroy_tree(left);
+  if (right) destroy_tree(right);
 }
