@@ -19,8 +19,6 @@ void print_tree(pll_rnode_s* root) {
 
 
 int main() {
-  std::cout << "Hello world!" << std::endl;
-
   std::vector<std::pair<std::string, std::string>> sequences =
     { {"H0", "TATTGCTAATGCTACATCGCTCGGAACAAATACGGGGCACTTGTTTTCAGCACAAGCAAGCGGGAAGTCATGACCCCCTAGAGTCCCTTCTGGAAAGCCT"},
       {"H1", "GAGGCTACCCGCTGACAGTTCCCGAACAGGAATAATTATTGGGTGTTCTGATCGAACAGGGTATGGCAATGGCCATCACGAGCCGAGCGGCCTCCCAAAG"},
