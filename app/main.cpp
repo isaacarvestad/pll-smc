@@ -4,7 +4,7 @@
 #include "pll_smc.h"
 #include "fasta_helper.h"
 
-void print_tree(pll_rnode_s* root) {
+void print_tree(phylo_tree_node* root) {
   if (root->left && root->right) {
     std::cout << "(";
     print_tree(root->left);

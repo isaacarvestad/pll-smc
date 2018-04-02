@@ -35,11 +35,9 @@ void Particle::propose(const double rate) {
   }
 
   std::exponential_distribution<> exponential_dist(rate);
+  double height = exponential_dist(mt_generator);
 
-  double branch_length_left = exponential_dist(mt_generator);
-  double branch_length_right = exponential_dist(mt_generator);
-
-  pll_rnode_s* node = forest->connect(i, j, branch_length_left, branch_length_right);
+  phylo_tree_node* node = forest->connect(i, j, height);
 
   log_weight += forest->likelihood_factor(node);
 }

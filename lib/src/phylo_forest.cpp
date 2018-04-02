@@ -13,8 +13,10 @@ PhyloForest::PhyloForest(const PhyloForest &original) {
 
   partition_manager = new PartitionManager(*original.get_partition_manager());
 
+  forest_height = original.forest_height;
+
   for (auto &r : original.get_roots()) {
-    pll_rnode_s* root = new pll_rnode_s;
+    phylo_tree_node* root = new phylo_tree_node;
     *root = *r;
     roots.push_back(root);
   }
@@ -76,9 +78,10 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
 
     pll_set_tip_states(partition_manager->get_partition(), i, pll_map_nt, sequence.data());
 
-    pll_rnode_s * node = new pll_rnode_s
-      { .label = strdup(label.c_str()),
-        .length = 0.0f,
+    phylo_tree_node * node = new phylo_tree_node
+      { .label = label,
+        .length = 0.0,
+        .height = forest_height,
         .node_index = forest_node_count,
         .clv_index = forest_node_count,
         .scaler_index = PLL_SCALE_BUFFER_NONE,
@@ -95,27 +98,32 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
 }
 
 
-pll_rnode_s* PhyloForest::connect(int i, int j, double b1, double b2) {
+phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   assert(roots.size() > 1 && "Expected more than one root");
   assert(i != j && "Cannot connect, this would make a loop");
-  assert(b1 >= 0 && b2 >= 0 && "Branch length can't be negative");
+  assert(height_delta >= 0 && "Height change can't be negative");
   assert(i >= 0 && i < roots.size() &&
          j >= 0 && j < roots.size() && "Index out of bounds");
 
-  pll_rnode_s * left = roots[i];
-  pll_rnode_s * right = roots[j];
+  phylo_tree_node * left = roots[i];
+  phylo_tree_node * right = roots[j];
 
-  left->length = b1;
+  forest_height += height_delta;
+
+  left->length = forest_height - left->height;
+  assert(left->length >= 0 && "Branch length can't be negative");
   left->pmatrix_index = forest_branch_count;
 
-  right->length = b2;
+  right->length = forest_height - right->height;
+  assert(right->length >= 0 && "Branch length can't be negative");
   right->pmatrix_index = forest_branch_count + 1;
 
   forest_branch_count += 2;
 
-  pll_rnode_s * combined = new pll_rnode_s
-    { .label = (char*) "",
-      .length = 0.0f,
+  phylo_tree_node * combined = new phylo_tree_node
+    { .label = "",
+      .length = 0.0,
+      .height = forest_height,
       .node_index = forest_node_count,
       .clv_index = forest_node_count,
       .scaler_index = (int) forest_internal_node_count,
@@ -165,7 +173,7 @@ pll_rnode_s* PhyloForest::connect(int i, int j, double b1, double b2) {
 /**
    TODO: compute q and delta
  */
-double PhyloForest::likelihood_factor(pll_rnode_s* root) {
+double PhyloForest::likelihood_factor(phylo_tree_node* root) {
   assert(root->left && root->right && "Root cannot be a leaf");
 
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
@@ -197,9 +205,9 @@ void PhyloForest::remove_roots(int i, int j) {
   }
 }
 
-void PhyloForest::destroy_tree(pll_rnode_s* root) {
-  pll_rnode_s* left = root->left;
-  pll_rnode_s* right = root->right;
+void PhyloForest::destroy_tree(phylo_tree_node* root) {
+  phylo_tree_node* left = root->left;
+  phylo_tree_node* right = root->right;
 
   delete(root);
   if (left) destroy_tree(left);

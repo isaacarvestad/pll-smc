@@ -48,7 +48,7 @@ class Particle {
   /**
      Returns the current roots of the particles forest.
    */
-  std::vector<pll_rnode_s*> get_roots() const { return forest->get_roots(); };
+  std::vector<phylo_tree_node*> get_roots() const { return forest->get_roots(); };
 
   /**
      Returns the particles forest.
