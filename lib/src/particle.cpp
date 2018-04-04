@@ -3,7 +3,8 @@
 Particle::Particle(double weight,
                    const std::vector<std::pair<std::string, std::string>> sequences,
                    const unsigned int sequence_lengths)
-  : log_weight(log(weight))
+  : weight(weight),
+    normalized_weight(1)
 {
   forest = new PhyloForest(sequences, sequence_lengths);
 
@@ -11,7 +12,10 @@ Particle::Particle(double weight,
   mt_generator = std::mt19937(random());
 }
 
-Particle::Particle(const Particle &original) {
+Particle::Particle(const Particle &original)
+  : weight(original.weight),
+    normalized_weight(original.normalized_weight)
+{
   forest = new PhyloForest(*original.get_forest());
 
   std::random_device random;
@@ -39,5 +43,5 @@ void Particle::propose(const double rate) {
 
   phylo_tree_node* node = forest->connect(i, j, height);
 
-  log_weight += forest->likelihood_factor(node);
+  weight += forest->likelihood_factor(node);// * density / ;
 }

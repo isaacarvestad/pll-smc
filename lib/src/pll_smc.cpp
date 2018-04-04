@@ -63,15 +63,27 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
 }
 
 void resample(std::vector<Particle*> &particles) {
-  sort(particles.begin(), particles.end(),
-       [](const Particle* a, const Particle* b) -> bool {
-         return a->normalized_weight > b->normalized_weight;
-       });
-
-  for (int i = 100; i < particles.size(); i++) {
-    delete(particles[i]);
-    particles[i] = new Particle(*particles[i % 100]);
+  std::vector<double> normalized_weights;
+  for (auto &p : particles) {
+    normalized_weights.push_back(p->normalized_weight);
   }
+
+  std::random_device random;
+  std::discrete_distribution<double> dist(normalized_weights.begin(), normalized_weights.end());
+
+  std::vector<Particle*> new_particles;
+  for (int i = 0; i < particles.size(); i++) {
+    int index = dist(random);
+
+    Particle* p = new Particle(*particles[index]);
+    new_particles.push_back(p);
+  }
+
+  for (int i = 0; i < particles.size(); i++) {
+    delete(particles[i]);
+  }
+
+  particles = new_particles;
 }
 
 void propose(std::vector<Particle*> &particles, const double rate) {
@@ -81,12 +93,18 @@ void propose(std::vector<Particle*> &particles, const double rate) {
 }
 
 void normalize_weights(std::vector<Particle*> &particles) {
+  double max = __DBL_MIN__;
+  for (auto &p : particles) {
+    if (p->weight > max) max = p->weight;
+  }
+
   double sum = 0.0;
   for (auto &p : particles) {
-    sum += exp(p->log_weight);
+    p->normalized_weight = p->weight - max;
+    sum += exp(p->normalized_weight);
   }
 
   for (auto &p : particles) {
-    p->normalized_weight = exp(p->log_weight) / sum;
+    p->normalized_weight = exp(p->normalized_weight) / sum;
   }
 }

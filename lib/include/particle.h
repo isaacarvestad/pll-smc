@@ -15,7 +15,7 @@ class Particle {
   std::mt19937 mt_generator;
 
  public:
-  double log_weight;
+  double weight;
   double normalized_weight;
 
   /**

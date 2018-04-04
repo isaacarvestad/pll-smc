@@ -30,16 +30,16 @@ int main(int argc, char* argv[]) {
   run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
-  double max = -DBL_MAX;
+  double max = __DBL_MIN__;
   for (auto &p : particles) {
-    if (exp(p->log_weight) > max) {
-      max = exp(p->log_weight);
+    if (p->normalized_weight > max) {
+      max = p->normalized_weight;
       particle = p;
     }
   }
   std::cout << std::endl;
 
-  std::cout << "Weight: " << exp(particle->log_weight) << ", normalized weight: " << particle->normalized_weight << std::endl;
+  std::cout << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
 
   assert(particle->get_roots().size() == 1);
   print_tree(particle->get_roots()[0]);

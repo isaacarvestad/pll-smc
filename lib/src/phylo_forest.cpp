@@ -65,8 +65,8 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
   assert(partition_manager);
 
   pll_set_frequencies(partition_manager->get_partition(), 0, nucleotide_frequencies);
-  pll_set_subst_params(partition_manager->get_partition(), 0, substitution_parameters);
   pll_set_category_rates(partition_manager->get_partition(), rate_categories);
+  pll_set_subst_params(partition_manager->get_partition(), 0, substitution_parameters);
 }
 
 void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
