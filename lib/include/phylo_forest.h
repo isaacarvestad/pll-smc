@@ -82,6 +82,11 @@ class PhyloForest {
   ~PhyloForest();
 
   /**
+     Copies a forest with a shallow copy of the forest's partition manager.
+   */
+  void shallow_copy(const PhyloForest &original);
+
+  /**
      Connects two root nodes with index 'i' and 'j' respectively in the root
      vector. Updates the internal PLL partition to reflect this change. Branch
      lengths are calculated from the height of the new internal node given by
@@ -118,6 +123,10 @@ class PhyloForest {
      Maximum tree height in the forest.
    */
   double get_forest_height() const { return forest_height; };
+
+  double get_forest_branch_count() const { return forest_branch_count; };
+  double get_forest_node_count() const { return forest_node_count; };
+  double get_forest_internal_node_count() const { return forest_internal_node_count; };
 };
 
 #endif

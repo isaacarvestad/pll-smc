@@ -38,6 +38,11 @@ class Particle {
   ~Particle();
 
   /**
+     Copies a particle with a shallow copy of the particle's forest.
+   */
+  void shallow_copy(const Particle &original);
+
+  /**
      Proposes an update to the particle by following the proposal distribution.
 
      'rate' is used to create exponential distribution that the branch lengths

@@ -26,6 +26,13 @@ Particle::~Particle() {
   delete(forest);
 }
 
+void Particle::shallow_copy(const Particle &original) {
+  weight = original.weight;
+  normalized_weight = original.normalized_weight;
+
+  forest->shallow_copy(*original.get_forest());
+}
+
 void Particle::propose(const double rate) {
   assert(forest->root_count() > 1 && "Cannot propose a continuation on a single root node");
 

@@ -71,16 +71,11 @@ void resample(std::vector<Particle*> &particles) {
   std::random_device random;
   std::discrete_distribution<double> dist(normalized_weights.begin(), normalized_weights.end());
 
-  std::vector<Particle*> new_particles;
+  std::vector<Particle*> new_particles = particles;
   for (int i = 0; i < particles.size(); i++) {
     int index = dist(random);
 
-    Particle* p = new Particle(*particles[index]);
-    new_particles.push_back(p);
-  }
-
-  for (int i = 0; i < particles.size(); i++) {
-    delete(particles[i]);
+    new_particles[i]->shallow_copy(*particles[index]);
   }
 
   particles = new_particles;

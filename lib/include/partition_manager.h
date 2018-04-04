@@ -99,6 +99,12 @@ class PartitionManager {
 
   ~PartitionManager();
 
+  /**
+     Copies a partition manager without allocating new memory for the underlying
+     PLL partition.
+   */
+  void shallow_copy(const PartitionManager &original);
+
   pll_partition_t * get_partition() const { return partition; };
 };
 

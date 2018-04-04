@@ -137,6 +137,11 @@ PartitionManager::~PartitionManager()
   free(partition);
 }
 
+void PartitionManager::shallow_copy(const PartitionManager &original) {
+  std::memcpy(partition, original.partition, sizeof(struct pll_partition) + original.partition_size);
+
+  setup_partition_pointers();
+}
 
 unsigned int PartitionManager::get_states_padded(unsigned int states, unsigned int attributes) {
   /* Code taken and modified from pll.c  */

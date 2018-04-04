@@ -26,6 +26,18 @@ PhyloForest::~PhyloForest() {
   delete(partition_manager);
 }
 
+void PhyloForest::shallow_copy(const PhyloForest &original) {
+  forest_branch_count = original.get_forest_branch_count();
+  forest_node_count = original.get_forest_node_count();
+  forest_internal_node_count = original.get_forest_internal_node_count();
+
+  partition_manager->shallow_copy(*original.get_partition_manager());
+
+  forest_height = original.get_forest_height();
+
+  roots = original.get_roots();
+}
+
 void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned int sequence_lengths) {
   const unsigned int node_count = 2 * leaf_node_count - 1;
   const unsigned int inner_node_count = leaf_node_count - 1;
