@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
   std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
 
-  std::vector<Particle*> particles = create_particles(5000, sequences);
+  std::vector<Particle*> particles = create_particles(500, sequences);
   run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
