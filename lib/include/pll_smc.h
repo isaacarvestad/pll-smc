@@ -29,7 +29,7 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
 /**
    Resamples the particles based on their weights using multinomial resampling.
  */
-void resample(std::vector<Particle*> &particles);
+void resample(std::vector<Particle*> &particles, const unsigned int iteration);
 
 /**
    Proposes an update to a partical using the particals proposal method.
@@ -37,11 +37,11 @@ void resample(std::vector<Particle*> &particles);
    'rate' specifies the parameter used in sampling the exponentially distributed
    branch lengths.
  */
-void propose(std::vector<Particle*> &particles, const double rate);
+void propose(std::vector<Particle*> &particles, const double rate, const unsigned int iteration);
 
 /**
    Normalizes the weight of the particle.
  */
-void normalize_weights(std::vector<Particle*> &particles);
+void normalize_weights(std::vector<Particle*> &particles, const unsigned int iteration);
 
 #endif

@@ -14,8 +14,6 @@ double approx_rate(int x) {
 std::vector<Particle*> create_particles(const unsigned int count,
                                         const std::vector<std::pair<std::string, std::string>> sequences)
 {
-  std::cerr << "Creating particles" << std::endl;
-
   assert(sequences.size() > 0 && "Expected at least one sequence");
   const unsigned int sequence_lengths = sequences[0].second.length();
   for (auto &s : sequences) {
@@ -29,8 +27,6 @@ std::vector<Particle*> create_particles(const unsigned int count,
     p = new Particle(initial_weight, sequences, sequence_lengths);
   }
 
-  std::cerr << "Particles successfully created" << std::endl;
-
   return particles;
 }
 
@@ -39,15 +35,13 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
 {
   const int iterations = sequence_count - 1;
 
-  std::cerr << "Running SMC with " << iterations << " iterations" << std::endl;
-
   for (int i = 0; i < iterations; i++) {
     std::cerr << "Iteration " << i << std::endl;
     double rate = approx_rate(i - sequence_count + 1);
 
-    resample(particles);
-    propose(particles, rate);
-    normalize_weights(particles);
+    resample(particles, i);
+    propose(particles, rate, i);
+    normalize_weights(particles, i);
   }
 
   std::random_device random;
@@ -57,49 +51,50 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
     p->get_roots()[0]->length = exponential_dist(generator);
   }
 
-  std::cerr << "Finished running SMC" << std::endl;
-
   return particles;
 }
 
-void resample(std::vector<Particle*> &particles) {
+void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
+  int offset = iteration % 2 == 0 ? 0 : particles.size() / 2;
+
   std::vector<double> normalized_weights;
-  for (auto &p : particles) {
-    normalized_weights.push_back(p->normalized_weight);
+  for (int i = offset; i < particles.size() / 2 + offset; i++) {
+     normalized_weights.push_back(particles[i]->normalized_weight);
   }
 
   std::random_device random;
   std::discrete_distribution<double> dist(normalized_weights.begin(), normalized_weights.end());
 
-  std::vector<Particle*> new_particles = particles;
-  for (int i = 0; i < particles.size(); i++) {
+  for (int i = particles.size() / 2 - offset; i < particles.size() - offset; i++) {
     int index = dist(random);
 
-    new_particles[i]->shallow_copy(*particles[index]);
-  }
-
-  particles = new_particles;
-}
-
-void propose(std::vector<Particle*> &particles, const double rate) {
-  for (auto &p : particles) {
-    p->propose(rate);
+    particles[i]->shallow_copy(*particles[index + offset]);
   }
 }
 
-void normalize_weights(std::vector<Particle*> &particles) {
+void propose(std::vector<Particle*> &particles, const double rate, const unsigned int iteration) {
+  int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
+
+  for (int i = offset; i < particles.size() / 2 + offset; i++) {
+    particles[i]->propose(rate);
+  }
+}
+
+void normalize_weights(std::vector<Particle*> &particles, const unsigned int iteration) {
+  int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
+
   double max = __DBL_MIN__;
-  for (auto &p : particles) {
-    if (p->weight > max) max = p->weight;
+  for (int i = offset; i < particles.size() / 2 + offset; i++) {
+    if (particles[i]->weight > max) max = particles[i]->weight;
   }
 
   double sum = 0.0;
-  for (auto &p : particles) {
-    p->normalized_weight = p->weight - max;
-    sum += exp(p->normalized_weight);
+  for (int i = offset; i < particles.size() / 2 + offset; i++) {
+    particles[i]->normalized_weight = particles[i]->weight - max;
+    sum += exp(particles[i]->normalized_weight);
   }
 
-  for (auto &p : particles) {
-    p->normalized_weight = exp(p->normalized_weight) / sum;
+  for (int i = offset; i < particles.size() / 2 + offset; i++) {
+    particles[i]->normalized_weight = exp(particles[i]->normalized_weight) / sum;
   }
 }

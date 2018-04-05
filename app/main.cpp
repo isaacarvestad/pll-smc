@@ -26,12 +26,19 @@ int main(int argc, char* argv[]) {
 
   std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
 
-  std::vector<Particle*> particles = create_particles(500, sequences);
+  const unsigned int particle_count = 1000;
+
+  std::cerr << "Creating 2 * " << particle_count << " particles" << std::endl;
+  std::vector<Particle*> particles = create_particles(2*particle_count, sequences);
+
+  std::cerr << "Running SMC for " << sequences.size() << " iterations" << std::endl;
   run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
   double max = __DBL_MIN__;
+
   for (auto &p : particles) {
+    if (p->get_roots().size() > 1) continue;
     if (p->normalized_weight > max) {
       max = p->normalized_weight;
       particle = p;

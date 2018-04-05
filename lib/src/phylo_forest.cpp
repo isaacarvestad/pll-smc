@@ -35,7 +35,11 @@ void PhyloForest::shallow_copy(const PhyloForest &original) {
 
   forest_height = original.get_forest_height();
 
-  roots = original.get_roots();
+  roots.clear();
+  for (auto &r : original.get_roots()) {
+    phylo_tree_node* root = new phylo_tree_node(*r);
+    roots.push_back(root);
+  }
 }
 
 void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned int sequence_lengths) {
