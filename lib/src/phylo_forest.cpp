@@ -49,7 +49,7 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
 
   // Number of states which a nucleotide can have {A,C,G,T}
   const unsigned int nucleotide_states = 4;
-  //
+  // From libpll/wiki four denotes the model JTT (Jones et al., 1992)
   const unsigned int substitution_model_count = 4;
 
   // One scale buffer per inner node
