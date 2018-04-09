@@ -47,7 +47,7 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
   std::random_device random;
   std::mt19937 generator(random());
   for (auto &p : particles) {
-    std::exponential_distribution<> exponential_dist(1);
+    std::exponential_distribution<double> exponential_dist(1);
     p->get_roots()[0]->length = exponential_dist(generator);
   }
 
