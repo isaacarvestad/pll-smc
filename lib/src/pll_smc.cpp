@@ -20,7 +20,7 @@ std::vector<Particle*> create_particles(const unsigned int count,
     assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
   }
 
-  const double initial_weight = 1.0f / (double) count;
+  const double initial_weight = 1.0 / (double) count;
 
   std::vector<Particle*> particles(count, nullptr);
   for (auto &p : particles) {
