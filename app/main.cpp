@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <float.h>
 
 #include "pll_smc.h"
@@ -17,21 +18,23 @@ void print_tree(phylo_tree_node* root) {
   }
 }
 
-
 int main(int argc, char* argv[]) {
-  if (argc != 2) {
+  unsigned int particle_count;
+  if (argc < 2) {
     std::cerr << "Missing Fasta file path argument!";
     return 1;
+  } else if (argc == 2) {
+    particle_count = 1000;
+  } else if (argc == 3) {
+    particle_count = atoi(argv[2]);
   }
 
   std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
 
-  const unsigned int particle_count = 1000;
-
   std::cerr << "Creating 2 * " << particle_count << " particles" << std::endl;
   std::vector<Particle*> particles = create_particles(2*particle_count, sequences);
 
-  std::cerr << "Running SMC for " << sequences.size() << " iterations" << std::endl;
+  std::cerr << "Running SMC for " << sequences.size() - 1 << " iterations" << std::endl;
   run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
@@ -39,14 +42,14 @@ int main(int argc, char* argv[]) {
 
   for (auto &p : particles) {
     if (p->get_roots().size() > 1) continue;
-    if (p->normalized_weight > max) {
-      max = p->normalized_weight;
+    if (p->weight > max) {
+      max = p->weight;
       particle = p;
     }
   }
-  std::cout << std::endl;
+  std::cerr << std::endl;
 
-  std::cout << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
+  std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
 
   assert(particle->get_roots().size() == 1);
   print_tree(particle->get_roots()[0]);
