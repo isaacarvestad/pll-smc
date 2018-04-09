@@ -65,7 +65,7 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
       2.38629436117236260
     };
 
-  const double nucleotide_frequencies[4] = { 0.17, 0.19, 0.25, 0.39 };
+  const double nucleotide_frequencies[4] = { 0.25, 0.25, 0.25, 0.25 };
   double substitution_parameters[6] = { 1, 1, 1, 1, 1, 1 };
   unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
