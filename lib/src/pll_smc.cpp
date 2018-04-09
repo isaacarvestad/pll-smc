@@ -63,7 +63,7 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   }
 
   std::random_device random;
-  std::discrete_distribution<double> dist(normalized_weights.begin(), normalized_weights.end());
+  std::discrete_distribution<int> dist(normalized_weights.begin(), normalized_weights.end());
 
   for (int i = particles.size() / 2 - offset; i < particles.size() - offset; i++) {
     int index = dist(random);
