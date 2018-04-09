@@ -50,5 +50,5 @@ void Particle::propose(const double rate) {
 
   phylo_tree_node* node = forest->connect(i, j, height);
 
-  weight += forest->likelihood_factor(node);// * density / ;
+  weight = forest->likelihood_factor(node);
 }
