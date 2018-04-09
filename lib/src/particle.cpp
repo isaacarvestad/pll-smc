@@ -37,15 +37,15 @@ void Particle::propose(const double rate) {
   assert(forest->root_count() > 1 && "Cannot propose a continuation on a single root node");
 
   std::uniform_int_distribution<int> int_dist(0, forest->root_count() - 1);
-  int i = (int) int_dist(mt_generator);
+  int i = int_dist(mt_generator);
   int j = -1;
 
   while (j == -1) {
-    j = (int) int_dist(mt_generator);
+    j = int_dist(mt_generator);
     if (j == i) j = -1;
   }
 
-  std::exponential_distribution<> exponential_dist(rate);
+  std::exponential_distribution<double> exponential_dist(rate);
   double height = exponential_dist(mt_generator);
 
   phylo_tree_node* node = forest->connect(i, j, height);
