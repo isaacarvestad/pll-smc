@@ -186,9 +186,6 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   return combined;
 }
 
-/**
-   TODO: compute q and delta
- */
 double PhyloForest::likelihood_factor(phylo_tree_node* root) {
   assert(root->left && root->right && "Root cannot be a leaf");
 
@@ -200,9 +197,14 @@ double PhyloForest::likelihood_factor(phylo_tree_node* root) {
   double l_left = pll_compute_root_loglikelihood(partition_manager->get_partition(),
                                                  root->left->clv_index, root->left->scaler_index,
                                                  parameter_indices, NULL);
+
   double l_right = pll_compute_root_loglikelihood(partition_manager->get_partition(),
                                                   root->right->clv_index, root->right->scaler_index,
                                                   parameter_indices, NULL);
+
+  assert(l_merged <= 0 && "Likelihood can't be more than 100%");
+  assert(l_left <= 0 && "Likelihood can't be more than 100%");
+  assert(l_right <= 0 && "Likelihood can't be more than 100%");
 
   return l_merged - (l_left + l_right);
 }
