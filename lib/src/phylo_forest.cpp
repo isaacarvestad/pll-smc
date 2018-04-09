@@ -55,8 +55,7 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
   // One scale buffer per inner node
   const unsigned int scale_buffer_count = inner_node_count;
 
-  // "Discretized category rates from a gamma distribution with alpha shape 1" -
-  // libpll
+  // From libpll/wiki "Discretized category rates from a gamma distribution with alpha shape 1"
   const unsigned int rate_category_count = 4;
   double rate_categories[4] =
     { 0.13695378267140107,
