@@ -20,7 +20,7 @@ std::vector<Particle*> create_particles(const unsigned int count,
     assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
   }
 
-  const double initial_weight = 1.0f / (double) count;
+  const double initial_weight = 1.0 / (double) count;
 
   std::vector<Particle*> particles(count, nullptr);
   for (auto &p : particles) {
@@ -47,7 +47,7 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
   std::random_device random;
   std::mt19937 generator(random());
   for (auto &p : particles) {
-    std::exponential_distribution<> exponential_dist(1);
+    std::exponential_distribution<double> exponential_dist(1);
     p->get_roots()[0]->length = exponential_dist(generator);
   }
 
