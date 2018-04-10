@@ -39,3 +39,7 @@ build
 \#*\#
 auto-save-list
 .\#*
+
+# vim
+*.swp
+*.swo
