@@ -6,43 +6,14 @@
 
 #include <libpll/pll.h>
 
+#include "phylo_tree.h"
 #include "partition_manager.h"
 
-/**
-   Similar to a pll_rnode struct but with a height field which is the sum of the
-   branch distances from the node to any leaf which it covers.
- */
-struct phylo_tree_node {
-  std::string label;
-  double length;
-  double height;
-  unsigned int node_index;
-  unsigned int clv_index;
-  int scaler_index;
-  unsigned int pmatrix_index;
-  phylo_tree_node* left;
-  phylo_tree_node* right;
-  phylo_tree_node* parent;
-};
-
-/**
-   A PhyloForest contains a pointer to a 'pll_partition_t', keeps track of pll
-   state and performs likelihood calculations.
- */
 class PhyloForest {
-  unsigned int forest_branch_count = 0;
-  unsigned int forest_node_count = 0;
-  unsigned int forest_internal_node_count = 0;
+  const pll_partition_t* reference_partition;
 
-  PartitionManager* partition_manager;
-
-  double forest_height = 0.0;
+  double forest_height;
   std::vector<phylo_tree_node*> roots;
-
-  /**
-     Sets up PLL partition with the correct evolutionary model.
-   */
-  void setup_pll(const unsigned int leaf_node_count, const unsigned int sequence_lengths);
 
   /**
      Sets the sequences of the partition.
@@ -68,12 +39,18 @@ class PhyloForest {
      and a constant specifying a length of every sequence.
    */
   PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
-              const unsigned int sequence_lengths);
+              const unsigned int sequence_lengths,
+              const pll_partition_t* reference_partition);
 
   /**
      Copy constructor
    */
   PhyloForest(const PhyloForest &original);
+
+  /**
+     Copy reference partition, forest height and root vector.
+   */
+  PhyloForest& operator=(const PhyloForest& original);
 
   /**
      Remove PLL partition. Does not delete the root vector trees since they may
@@ -110,11 +87,6 @@ class PhyloForest {
   std::vector<phylo_tree_node*> get_roots() const { return roots; }
 
   /**
-     Returns a pointer to the partition manager.
-   */
-  const PartitionManager* get_partition_manager() const { return partition_manager; };
-
-  /**
      Number of root nodes in the forrest.
    */
   unsigned int root_count() const { return roots.size(); }
@@ -123,10 +95,6 @@ class PhyloForest {
      Maximum tree height in the forest.
    */
   double get_forest_height() const { return forest_height; };
-
-  double get_forest_branch_count() const { return forest_branch_count; };
-  double get_forest_node_count() const { return forest_node_count; };
-  double get_forest_internal_node_count() const { return forest_internal_node_count; };
 };
 
 #endif

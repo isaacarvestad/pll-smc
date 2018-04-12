@@ -24,7 +24,8 @@ class Particle {
    */
   Particle(double weight,
            const std::vector<std::pair<std::string, std::string>> sequences,
-           const unsigned int sequence_lengths);
+           const unsigned int sequence_lengths,
+           const pll_partition_t* reference_partition);
 
   /**
      Copy constructor. Copies the particles forest but creates a new random
@@ -33,14 +34,14 @@ class Particle {
   Particle(const Particle &original);
 
   /**
+     Copy assignment. Copies weight and forest but keeps own random generator.
+   */
+  Particle& operator=(const Particle& original);
+
+  /**
      Frees the particle.
    */
   ~Particle();
-
-  /**
-     Copies a particle with a shallow copy of the particle's forest.
-   */
-  void shallow_copy(const Particle &original);
 
   /**
      Proposes an update to the particle by following the proposal distribution.

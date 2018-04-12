@@ -17,14 +17,15 @@
    Each particle starts with a weight of 1/'count'.
  */
 std::vector<Particle*> create_particles(const unsigned int count,
-                                        const std::vector<std::pair<std::string, std::string>> sequences);
+                                        const std::vector<std::pair<std::string, std::string>> sequences,
+                                        const pll_partition_t* reference_partition);
 
 /**
-   Runs the Sequential Monte Carlo algorithm on a vector of input
-   particles. Returns the resulting particles.
+   Runs the Sequential Monte Carlo algorithm with a number of particles. Returns
+   the resulting particles.
  */
-std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
-                               const unsigned int sequence_count);
+std::vector<Particle*> run_smc(const unsigned int particle_count,
+                               const std::vector<std::pair<std::string, std::string>> sequences);
 
 /**
    Resamples the particles based on their weights using multinomial resampling.

@@ -11,8 +11,15 @@ double approx_rate(int x) {
   return (pow(n/k - 0.5, k) * exp(k)) / (sqrt(2 * M_PI * k));
 }
 
+/**
+   Creates a vector with 'count' number of particles, each using the given
+   vector of sequences.
+
+   Each particle starts with a weight of 1/'count'.
+ */
 std::vector<Particle*> create_particles(const unsigned int count,
-                                        const std::vector<std::pair<std::string, std::string>> sequences)
+                                        const std::vector<std::pair<std::string, std::string>> sequences,
+                                        const pll_partition_t* reference_partition)
 {
   assert(sequences.size() > 0 && "Expected at least one sequence");
   const unsigned int sequence_lengths = sequences[0].second.length();
@@ -24,16 +31,72 @@ std::vector<Particle*> create_particles(const unsigned int count,
 
   std::vector<Particle*> particles(count, nullptr);
   for (auto &p : particles) {
-    p = new Particle(initial_weight, sequences, sequence_lengths);
+    p = new Particle(initial_weight, sequences, sequence_lengths, reference_partition);
   }
 
   return particles;
 }
 
-std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
-                               const unsigned int sequence_count)
-{
-  const int iterations = sequence_count - 1;
+/**
+
+ */
+const pll_partition_t* create_reference_partition(const std::vector<std::pair<std::string, std::string>> sequences) {
+  assert(sequences.size() > 0 && "Expected at least one sequence");
+  const unsigned int sequence_lengths = sequences[0].second.length();
+  for (auto &s : sequences) {
+    assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
+  }
+
+  const unsigned int rate_category_count = 4;
+  const double rate_categories[4] =
+  { 0.13695378267140107,
+    0.47675185617665189,
+    0.99999999997958422,
+    2.38629436117236260
+  };
+
+  const unsigned int subst_model_count = 4;
+  const double subst_params[6] = { 1, 1, 1, 1, 1, 1 };
+
+  const unsigned int nucleotide_states = 4;
+  const double nucleotide_frequencies[4] = { 0.25, 0.25, 0.25, 0.25 };
+
+  pll_partition* partition = pll_partition_create(sequences.size(),
+                                                  0, // Don't allocate any inner CLV's.
+                                                  nucleotide_states,
+                                                  sequence_lengths,
+                                                  subst_model_count,
+                                                  0, // Don't allocate any pmatrices.
+                                                  rate_category_count,
+                                                  0, // Don't allocate any scale buffers.
+                                                  PLL_ATTRIB_ARCH_AVX);
+
+  assert(partition);
+  pll_set_frequencies(partition, 0, nucleotide_frequencies);
+  pll_set_category_rates(partition, rate_categories);
+  pll_set_subst_params(partition, 0, subst_params);
+
+  for (unsigned int i = 0; i < sequences.size(); i++) {
+    std::string sequence = sequences[i].second;
+
+    pll_set_tip_states(partition, i, pll_map_nt, sequence.data());
+  }
+
+  // Once for each param index
+  pll_update_eigen(partition, 0);
+
+  return partition;
+}
+
+std::vector<Particle*> run_smc(const unsigned int particle_count,
+                               const std::vector<std::pair<std::string, std::string>> sequences) {
+
+  const pll_partition_t* reference_partition = create_reference_partition(sequences);
+
+  std::vector<Particle*> particles = create_particles(particle_count, sequences, reference_partition);
+
+  const unsigned int sequence_count = sequences.size();
+  const unsigned int iterations = sequence_count - 1;
 
   for (int i = 0; i < iterations; i++) {
     std::cerr << "Iteration " << i << std::endl;
@@ -42,13 +105,6 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
     resample(particles, i);
     propose(particles, rate, i);
     normalize_weights(particles, i);
-  }
-
-  std::random_device random;
-  std::mt19937 generator(random());
-  for (auto &p : particles) {
-    std::exponential_distribution<double> exponential_dist(1);
-    p->get_roots()[0]->length = exponential_dist(generator);
   }
 
   return particles;
@@ -68,7 +124,7 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   for (int i = particles.size() / 2 - offset; i < particles.size() - offset; i++) {
     int index = dist(random);
 
-    particles[i]->shallow_copy(*particles[index + offset]);
+    *particles[i] = *particles[index + offset];
   }
 }
 

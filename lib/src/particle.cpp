@@ -2,11 +2,12 @@
 
 Particle::Particle(double weight,
                    const std::vector<std::pair<std::string, std::string>> sequences,
-                   const unsigned int sequence_lengths)
+                   const unsigned int sequence_lengths,
+                   const pll_partition_t* reference_partition)
   : weight(weight),
     normalized_weight(1)
 {
-  forest = new PhyloForest(sequences, sequence_lengths);
+  forest = new PhyloForest(sequences, sequence_lengths, reference_partition);
 
   std::random_device random;
   mt_generator = std::mt19937(random());
@@ -16,21 +17,23 @@ Particle::Particle(const Particle &original)
   : weight(original.weight),
     normalized_weight(original.normalized_weight)
 {
-  forest = new PhyloForest(*original.get_forest());
+  forest = new PhyloForest(*original.forest);
 
   std::random_device random;
   mt_generator = std::mt19937(random());
 }
 
-Particle::~Particle() {
-  delete(forest);
+Particle& Particle::operator=(const Particle& original) {
+  if (this == &original) return *this;
+
+  weight = original.weight;
+  *forest = *original.forest;
+
+  return *this;
 }
 
-void Particle::shallow_copy(const Particle &original) {
-  weight = original.weight;
-  normalized_weight = original.normalized_weight;
-
-  forest->shallow_copy(*original.get_forest());
+Particle::~Particle() {
+  delete(forest);
 }
 
 void Particle::propose(const double rate) {
@@ -51,4 +54,5 @@ void Particle::propose(const double rate) {
   phylo_tree_node* node = forest->connect(i, j, height);
 
   weight = forest->likelihood_factor(node);
+  assert(!isnan(weight) && !isinf(weight));
 }
