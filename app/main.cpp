@@ -5,16 +5,16 @@
 #include "pll_smc.h"
 #include "fasta_helper.h"
 
-void print_tree(phylo_tree_node* root) {
+void print_tree(phylo_tree_node* root, std::ostream &stream) {
   if (root->left && root->right) {
-    std::cout << "(";
-    print_tree(root->left);
-    std::cout << ", ";
-    print_tree(root->right);
-    std::cout << "):" << root->length;
+    stream << "(";
+    print_tree(root->left, stream);
+    stream << ", ";
+    print_tree(root->right, stream);
+    stream << "):" << root->length;
   } else {
     std::string label(root->label);
-    std::cout << label << ":" << root->length;
+    stream << label << ":" << root->length;
   }
 }
 
@@ -38,20 +38,28 @@ int main(int argc, char* argv[]) {
   run_smc(particles, sequences.size());
 
   Particle* particle = nullptr;
-  double max = __DBL_MIN__;
+  double max = -DBL_MAX;
 
   for (auto &p : particles) {
     if (p->get_roots().size() > 1) continue;
-    if (p->weight > max) {
-      max = p->weight;
+    if (p->normalized_weight > max) {
+      max = p->normalized_weight;
       particle = p;
     }
+
+    std::cout << p->normalized_weight << " ";
+    print_tree(p->get_roots().front(), std::cout);
+    std::cout << ";" << std::endl;
   }
   std::cerr << std::endl;
 
-  std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
+  if (particle) {
+    std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
 
-  assert(particle->get_roots().size() == 1);
-  print_tree(particle->get_roots()[0]);
-  std::cout << ";" << std::endl;
+    assert(particle->get_roots().size() == 1);
+    print_tree(particle->get_roots()[0], std::cerr);
+    std::cout << ";" << std::endl;
+  } else {
+    std::cerr << "Couldn't find particle with largest normalized weight" << std::endl;
+  }
 }
