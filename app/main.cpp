@@ -1,20 +1,23 @@
 #include <iostream>
 #include <algorithm>
+#include <memory>
 #include <float.h>
 
 #include "pll_smc.h"
 #include "fasta_helper.h"
 
-void print_tree(phylo_tree_node* root) {
-  if (root->left && root->right) {
+void print_tree(std::shared_ptr<PhyloTreeNode> root) {
+  if (root->edge_l && root->edge_r) {
     std::cout << "(";
-    print_tree(root->left);
+    print_tree(root->edge_l->child);
+    std::cout << ":" << root->edge_l->length;
     std::cout << ", ";
-    print_tree(root->right);
-    std::cout << "):" << root->length;
+    print_tree(root->edge_r->child);
+    std::cout << ":" << root->edge_r->length;
+    std::cout << ")";
   } else {
     std::string label(root->label);
-    std::cout << label << ":" << root->length;
+    std::cout << label;
   }
 }
 
@@ -31,11 +34,10 @@ int main(int argc, char* argv[]) {
 
   std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
 
-  std::cerr << "Creating 2 * " << particle_count << " particles" << std::endl;
-  std::vector<Particle*> particles = create_particles(2*particle_count, sequences);
+  std::cerr << "Running SMC for " << sequences.size() - 1 <<
+    " iterations with 2 * " << particle_count << " particles" << std::endl;
 
-  std::cerr << "Running SMC for " << sequences.size() - 1 << " iterations" << std::endl;
-  run_smc(particles, sequences.size());
+  std::vector<Particle*> particles = run_smc(2*particle_count, sequences);
 
   Particle* particle = nullptr;
   double max = __DBL_MIN__;
@@ -47,7 +49,6 @@ int main(int argc, char* argv[]) {
       particle = p;
     }
   }
-  std::cerr << std::endl;
 
   std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
 

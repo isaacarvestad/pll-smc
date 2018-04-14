@@ -7,24 +7,15 @@
 #include <libpll/pll.h>
 #include <iostream>
 
-#include "partition_manager.h"
+#include "phylo_tree.h"
 #include "particle.h"
 
 /**
-   Creates a vector with 'count' number of particles, each using the given
-   vector of sequences.
-
-   Each particle starts with a weight of 1/'count'.
+   Runs the Sequential Monte Carlo algorithm with a number of particles. Returns
+   the resulting particles.
  */
-std::vector<Particle*> create_particles(const unsigned int count,
-                                        const std::vector<std::pair<std::string, std::string>> sequences);
-
-/**
-   Runs the Sequential Monte Carlo algorithm on a vector of input
-   particles. Returns the resulting particles.
- */
-std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
-                               const unsigned int sequence_count);
+std::vector<Particle*> run_smc(const unsigned int particle_count,
+                               const std::vector<std::pair<std::string, std::string>> sequences);
 
 /**
    Resamples the particles based on their weights using multinomial resampling.
