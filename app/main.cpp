@@ -6,18 +6,18 @@
 #include "pll_smc.h"
 #include "fasta_helper.h"
 
-void print_tree(std::shared_ptr<PhyloTreeNode> root) {
+void print_tree(std::shared_ptr<PhyloTreeNode> root, std::ostream &stream) {
   if (root->edge_l && root->edge_r) {
-    std::cout << "(";
-    print_tree(root->edge_l->child);
-    std::cout << ":" << root->edge_l->length;
-    std::cout << ", ";
-    print_tree(root->edge_r->child);
-    std::cout << ":" << root->edge_r->length;
-    std::cout << ")";
+    stream << "(";
+    print_tree(root->edge_l->child, stream);
+    stream << ":" << root->edge_l->length;
+    stream << ", ";
+    print_tree(root->edge_r->child, stream);
+    stream << ":" << root->edge_r->length;
+    stream << ")";
   } else {
     std::string label(root->label);
-    std::cout << label;
+    stream << label;
   }
 }
 
@@ -44,15 +44,23 @@ int main(int argc, char* argv[]) {
 
   for (auto &p : particles) {
     if (p->get_roots().size() > 1) continue;
-    if (p->weight > max) {
-      max = p->weight;
+    if (p->normalized_weight > max) {
+      max = p->normalized_weight;
       particle = p;
     }
+
+    std::cout << p->normalized_weight << " ";
+    print_tree(p->get_roots().front(), std::cout);
+    std::cout << ";" << std::endl;
   }
 
-  std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
+  if (particle) {
+    std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
 
-  assert(particle->get_roots().size() == 1);
-  print_tree(particle->get_roots()[0]);
-  std::cout << ";" << std::endl;
+    assert(particle->get_roots().size() == 1);
+    print_tree(particle->get_roots()[0], std::cerr);
+    std::cout << ";" << std::endl;
+  } else {
+    std::cerr << "Couldn't find particle with largest normalized weight" << std::endl;
+  }
 }
