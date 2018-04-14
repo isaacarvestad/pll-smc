@@ -2,13 +2,18 @@
 
 PhyloForest::PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
                          const unsigned int sequence_lengths,
-                         const pll_partition_t* reference_partition)
+                         const pll_partition_t* reference_partition,
+                         PLLBufferManager* const pll_buffer_manager)
   : reference_partition(reference_partition)
-  , forest_height(0.0) {
+  , pll_buffer_manager(pll_buffer_manager)
+  , forest_height(0.0)
+{
   setup_sequences_pll(sequences, sequence_lengths);
 }
 
-PhyloForest::PhyloForest(const PhyloForest& original) {
+PhyloForest::PhyloForest(const PhyloForest& original)
+  : pll_buffer_manager(original.pll_buffer_manager)
+{
   reference_partition = original.reference_partition;
   forest_height = original.forest_height;
   roots = original.roots;
@@ -30,25 +35,33 @@ PhyloForest::~PhyloForest() {
 void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
                                       const unsigned int sequence_lengths) {
 
+  const pll_partition_t* p = reference_partition;
+
   for (unsigned int i = 0; i < sequences.size(); i++) {
     std::string label = sequences[i].first;
 
-    phylo_tree_node * node = new phylo_tree_node
-      { .label = label,
-        .height = forest_height,
+    unsigned int sites_alloc = p->asc_bias_alloc ?
+      p->sites + p->states :
+      p->sites;
 
-        .clv = reference_partition->clv[i],
-        .scale_buffer = nullptr,
+    unsigned int clv_size = sites_alloc * p->states_padded * p->rate_cats * sizeof(double);
+    unsigned int scaler_size = (p->attributes & PLL_ATTRIB_RATE_SCALERS) ?
+      sites_alloc * p->rate_cats :
+      sites_alloc;
 
-        .child_edge_l = nullptr,
-        .child_edge_r = nullptr
-      };
+    std::shared_ptr<PhyloTreeNode> node =
+      std::make_shared<PhyloTreeNode>(pll_buffer_manager, nullptr, nullptr, label, forest_height, clv_size, scaler_size);
+    delete(node->clv);
+    delete(node->scale_buffer);
+    node->clv = p->clv[i];
+    node->scale_buffer = nullptr;
+
     roots.push_back(node);
   }
 }
 
 
-phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
+std::shared_ptr<PhyloTreeNode> PhyloForest::connect(int i, int j, double height_delta) {
   assert(roots.size() > 1 && "Expected more than one root");
   assert(i != j && "Cannot connect, this would make a loop");
   assert(height_delta >= 0 && "Height change can't be negative");
@@ -60,58 +73,42 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   forest_height += height_delta;
   assert(forest_height < 100);
 
-  phylo_tree_node* child_left = roots[i];
-  phylo_tree_node* child_right = roots[j];
+  std::shared_ptr<PhyloTreeNode> child_left = roots[i];
+  std::shared_ptr<PhyloTreeNode> child_right = roots[j];
 
-  phylo_tree_edge* edge_left = new phylo_tree_edge
-    { .child = child_left,
-      .length = forest_height - child_left->height,
-      .pmatrix = (double *) std::malloc(p->states *
-                                        p->states_padded *
-                                        p->rate_cats *
-                                        sizeof(double)
-                                        ) // TODO: double check 'displacement' is not needed
-    };
-  phylo_tree_edge* edge_right = new phylo_tree_edge
-    { .child = child_right,
-      .length = forest_height - child_right->height,
-      .pmatrix = (double *) std::malloc(p->states *
-                                        p->states_padded *
-                                        p->rate_cats *
-                                        sizeof(double)
-                                        ) // TODO: double check 'displacement' is not needed
-    };
+  double left_length = forest_height - child_left->height;
+  double right_length = forest_height - child_right->height;
+
+  unsigned int pmatrix_size = p->states * p->states_padded * p->rate_cats * sizeof(double);
+
+  std::shared_ptr<PhyloTreeEdge> edge_left =
+    std::make_shared<PhyloTreeEdge>(pll_buffer_manager, child_left, left_length, pmatrix_size);
+
+  std::shared_ptr<PhyloTreeEdge> edge_right =
+    std::make_shared<PhyloTreeEdge>(pll_buffer_manager, child_right, right_length, pmatrix_size);
 
   unsigned int sites_alloc = p->asc_bias_alloc ?
     p->sites + p->states :
     p->sites;
 
+  unsigned int clv_size = sites_alloc * p->states_padded * p->rate_cats * sizeof(double);
   unsigned int scaler_size = (p->attributes & PLL_ATTRIB_RATE_SCALERS) ?
     sites_alloc * p->rate_cats :
     sites_alloc;
+  unsigned int scale_buffer_size = scaler_size * sizeof(double);
 
-  phylo_tree_node* parent = new phylo_tree_node
-    { .label = "",
-      .height = forest_height,
-      .clv = (double *) std::malloc(sites_alloc *
-                                    p->states_padded *
-                                    p->rate_cats *
-                                    sizeof(double)
-                                    ),
-      .scale_buffer = (unsigned int *) std::malloc(scaler_size * sizeof(unsigned int)),
-      .child_edge_l = edge_left,
-      .child_edge_r = edge_right
-    };
+  std::shared_ptr<PhyloTreeNode> parent =
+    std::make_shared<PhyloTreeNode>(pll_buffer_manager, edge_left, edge_right, "", forest_height, clv_size, scale_buffer_size);
 
   const unsigned int matrix_indices[1] = { 0 };
   const unsigned int param_indices[4] = { 0, 0, 0, 0 };
 
   int left_edge_pmatrix_result =
-    pll_core_update_pmatrix(&parent->child_edge_l->pmatrix,
+    pll_core_update_pmatrix(&parent->edge_l->pmatrix,
                             p->states,
                             p->rate_cats,
                             p->rates,
-                            &parent->child_edge_l->length,
+                            &parent->edge_l->length,
                             matrix_indices,
                             param_indices,
                             p->prop_invar,
@@ -124,11 +121,11 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   assert(left_edge_pmatrix_result == PLL_SUCCESS);
 
   int right_edge_pmatrix_result =
-    pll_core_update_pmatrix(&parent->child_edge_r->pmatrix,
+    pll_core_update_pmatrix(&parent->edge_r->pmatrix,
                             p->states,
                             p->rate_cats,
                             p->rates,
-                            &parent->child_edge_r->length,
+                            &parent->edge_r->length,
                             matrix_indices,
                             param_indices,
                             p->prop_invar,
@@ -182,17 +179,17 @@ double compute_ln_likelihood(double* clv, unsigned int* scale_buffer, const pll_
                                      p->attributes);
 }
 
-double PhyloForest::likelihood_factor(phylo_tree_node* root) {
-  assert(root->child_edge_l && root->child_edge_r && "Root cannot be a leaf");
+double PhyloForest::likelihood_factor(std::shared_ptr<PhyloTreeNode> root) {
+  assert(root->edge_l && root->edge_r && "Root cannot be a leaf");
 
-  phylo_tree_node* left = root->child_edge_l->child;
-  phylo_tree_node* right = root->child_edge_r->child;
+  std::shared_ptr<PhyloTreeNode> left = root->edge_l->child;
+  std::shared_ptr<PhyloTreeNode> right = root->edge_r->child;
 
   double ln_m = compute_ln_likelihood(root->clv, root->scale_buffer, reference_partition);
   double ln_l = compute_ln_likelihood(left->clv, left->scale_buffer, reference_partition);
   double ln_r = compute_ln_likelihood(right->clv, right->scale_buffer, reference_partition);
 
-  assert(ln_m <= 0 && ln_l && ln_r && "Likelihood can't be more than 100%");
+  assert(ln_m <= 0 && ln_l <= 0 && ln_r <= 0 && "Likelihood can't be more than 100%");
 
   return ln_m - (ln_l + ln_r);
 }
@@ -209,17 +206,4 @@ void PhyloForest::remove_roots(int i, int j) {
     roots.erase(roots.begin() + i, roots.begin() + i + 1);
     roots.erase(roots.begin() + j, roots.begin() + j + 1);
   }
-}
-
-void PhyloForest::destroy_tree(phylo_tree_node* root) {
-  phylo_tree_node* left = root->child_edge_l->child;
-  phylo_tree_node* right = root->child_edge_r->child;
-
-  delete(root->child_edge_l);
-  delete(root->child_edge_r);
-  delete(root->clv);
-  delete(root->scale_buffer);
-  delete(root);
-  if (left) destroy_tree(left);
-  if (right) destroy_tree(right);
 }

@@ -19,7 +19,8 @@ double approx_rate(int x) {
  */
 std::vector<Particle*> create_particles(const unsigned int count,
                                         const std::vector<std::pair<std::string, std::string>> sequences,
-                                        const pll_partition_t* reference_partition)
+                                        const pll_partition_t* reference_partition,
+                                        PLLBufferManager* const pll_buffer_manager)
 {
   assert(sequences.size() > 0 && "Expected at least one sequence");
   const unsigned int sequence_lengths = sequences[0].second.length();
@@ -29,9 +30,10 @@ std::vector<Particle*> create_particles(const unsigned int count,
 
   const double initial_weight = 1.0 / (double) count;
 
+  Particle particle = Particle(initial_weight, sequences, sequence_lengths, reference_partition, pll_buffer_manager);
   std::vector<Particle*> particles(count, nullptr);
   for (auto &p : particles) {
-    p = new Particle(initial_weight, sequences, sequence_lengths, reference_partition);
+    p = new Particle(particle);
   }
 
   return particles;
@@ -69,7 +71,7 @@ const pll_partition_t* create_reference_partition(const std::vector<std::pair<st
                                                   0, // Don't allocate any pmatrices.
                                                   rate_category_count,
                                                   0, // Don't allocate any scale buffers.
-                                                  PLL_ATTRIB_ARCH_AVX);
+                                                  PLL_ATTRIB_ARCH_AVX2);
 
   assert(partition);
   pll_set_frequencies(partition, 0, nucleotide_frequencies);
@@ -92,8 +94,9 @@ std::vector<Particle*> run_smc(const unsigned int particle_count,
                                const std::vector<std::pair<std::string, std::string>> sequences) {
 
   const pll_partition_t* reference_partition = create_reference_partition(sequences);
+  PLLBufferManager* pll_buffer_manager = new PLLBufferManager;
 
-  std::vector<Particle*> particles = create_particles(particle_count, sequences, reference_partition);
+  std::vector<Particle*> particles = create_particles(particle_count, sequences, reference_partition, pll_buffer_manager);
 
   const unsigned int sequence_count = sequences.size();
   const unsigned int iterations = sequence_count - 1;

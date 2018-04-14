@@ -3,17 +3,19 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include <libpll/pll.h>
 
+#include "pll_buffer_manager.h"
 #include "phylo_tree.h"
-#include "partition_manager.h"
 
 class PhyloForest {
   const pll_partition_t* reference_partition;
+  PLLBufferManager* const pll_buffer_manager;
 
   double forest_height;
-  std::vector<phylo_tree_node*> roots;
+  std::vector<std::shared_ptr<PhyloTreeNode>> roots;
 
   /**
      Sets the sequences of the partition.
@@ -27,11 +29,6 @@ class PhyloForest {
    */
   void remove_roots(int i, int j);
 
-  /**
-     Recursively destroys a tree starting from the root.
-   */
-  void destroy_tree(phylo_tree_node* root);
-
  public:
 
   /**
@@ -40,7 +37,8 @@ class PhyloForest {
    */
   PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
               const unsigned int sequence_lengths,
-              const pll_partition_t* reference_partition);
+              const pll_partition_t* reference_partition,
+              PLLBufferManager* const pll_buffer_manager);
 
   /**
      Copy constructor
@@ -74,17 +72,17 @@ class PhyloForest {
 
      Returns the new root node.
    */
-  phylo_tree_node* connect(int i, int j, double height);
+  std::shared_ptr<PhyloTreeNode> connect(int i, int j, double height);
 
   /**
      Computes the likelihood factor (see equation 2.31)
    */
-  double likelihood_factor(phylo_tree_node* root);
+  double likelihood_factor(std::shared_ptr<PhyloTreeNode> root);
 
   /**
      Return the current root nodes of the forrest.
    */
-  std::vector<phylo_tree_node*> get_roots() const { return roots; }
+  std::vector<std::shared_ptr<PhyloTreeNode>> get_roots() const { return roots; }
 
   /**
      Number of root nodes in the forrest.

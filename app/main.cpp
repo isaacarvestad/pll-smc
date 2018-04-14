@@ -1,21 +1,19 @@
 #include <iostream>
 #include <algorithm>
+#include <memory>
 #include <float.h>
 
 #include "pll_smc.h"
 #include "fasta_helper.h"
 
-void print_tree(phylo_tree_node* root) {
-  if (root->child_edge_l && root->child_edge_r) {
-    phylo_tree_node* left = root->child_edge_l->child;
-    phylo_tree_node* right = root->child_edge_r->child;
-
+void print_tree(std::shared_ptr<PhyloTreeNode> root) {
+  if (root->edge_l && root->edge_r) {
     std::cout << "(";
-    print_tree(left);
-    std::cout << ":" << root->child_edge_l->length;
+    print_tree(root->edge_l->child);
+    std::cout << ":" << root->edge_l->length;
     std::cout << ", ";
-    print_tree(right);
-    std::cout << ":" << root->child_edge_r->length;
+    print_tree(root->edge_r->child);
+    std::cout << ":" << root->edge_r->length;
     std::cout << ")";
   } else {
     std::string label(root->label);

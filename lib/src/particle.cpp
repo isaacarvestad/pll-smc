@@ -3,11 +3,12 @@
 Particle::Particle(double weight,
                    const std::vector<std::pair<std::string, std::string>> sequences,
                    const unsigned int sequence_lengths,
-                   const pll_partition_t* reference_partition)
+                   const pll_partition_t* reference_partition,
+                   PLLBufferManager* const pll_buffer_manager)
   : weight(weight),
     normalized_weight(1)
 {
-  forest = new PhyloForest(sequences, sequence_lengths, reference_partition);
+  forest = new PhyloForest(sequences, sequence_lengths, reference_partition, pll_buffer_manager);
 
   std::random_device random;
   mt_generator = std::mt19937(random());
@@ -51,7 +52,7 @@ void Particle::propose(const double rate) {
   std::exponential_distribution<double> exponential_dist(rate);
   double height = exponential_dist(mt_generator);
 
-  phylo_tree_node* node = forest->connect(i, j, height);
+  std::shared_ptr<PhyloTreeNode> node = forest->connect(i, j, height);
 
   weight = forest->likelihood_factor(node);
   assert(!isnan(weight) && !isinf(weight));
