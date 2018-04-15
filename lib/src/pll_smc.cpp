@@ -57,7 +57,7 @@ const pll_partition_t* create_reference_partition(const std::vector<std::pair<st
     2.38629436117236260
   };
 
-  const unsigned int subst_model_count = 4;
+  const unsigned int subst_model_count = 1;
   const double subst_params[6] = { 1, 1, 1, 1, 1, 1 };
 
   const unsigned int nucleotide_states = 4;
@@ -71,7 +71,7 @@ const pll_partition_t* create_reference_partition(const std::vector<std::pair<st
                                                   0, // Don't allocate any pmatrices.
                                                   rate_category_count,
                                                   0, // Don't allocate any scale buffers.
-                                                  PLL_ATTRIB_ARCH_AVX2);
+                                                  PLL_ATTRIB_ARCH_SSE);
 
   assert(partition);
   pll_set_frequencies(partition, 0, nucleotide_frequencies);
