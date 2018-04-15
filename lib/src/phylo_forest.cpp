@@ -185,9 +185,14 @@ double PhyloForest::likelihood_factor(std::shared_ptr<PhyloTreeNode> root) {
   std::shared_ptr<PhyloTreeNode> left = root->edge_l->child;
   std::shared_ptr<PhyloTreeNode> right = root->edge_r->child;
 
+  /*
   double ln_m = compute_ln_likelihood(root->clv, root->scale_buffer, reference_partition);
   double ln_l = compute_ln_likelihood(left->clv, left->scale_buffer, reference_partition);
   double ln_r = compute_ln_likelihood(right->clv, right->scale_buffer, reference_partition);
+  */
+  double ln_m = compute_ln_likelihood(root->clv, nullptr, reference_partition);
+  double ln_l = compute_ln_likelihood(left->clv, nullptr, reference_partition);
+  double ln_r = compute_ln_likelihood(right->clv, nullptr, reference_partition);
 
   assert(ln_m <= 0 && ln_l <= 0 && ln_r <= 0 && "Likelihood can't be more than 100%");
 
