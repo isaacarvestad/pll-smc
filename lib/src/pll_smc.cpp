@@ -113,9 +113,15 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? 0 : particles.size() / 2;
 
   std::vector<double> normalized_weights;
+  double ess_sum;
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
-     normalized_weights.push_back(particles[i]->normalized_weight);
+    double normalized_weight = particles[i]->normalized_weight;
+    normalized_weights.push_back(normalized_weight);
+    ess_sum += normalized_weight * normalized_weight;
   }
+  double ess = 1 / ess_sum;
+
+  std::cerr << "ESS: " << ess << std::endl;
 
   std::random_device random;
   std::discrete_distribution<int> dist(normalized_weights.begin(), normalized_weights.end());
