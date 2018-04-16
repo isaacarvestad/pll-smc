@@ -1,14 +1,10 @@
 #include "pll_smc.h"
 
-/**
-   Approximates the exponential branch length. See
-   https://en.wikipedia.org/wiki/Binomial_coefficient#Bounds_and_asymptotic_formulas
- */
-double approx_rate(int x) {
-  double n = (double) x;
-  double k = 2;
+double compute_rate(int leaves, int iteration) {
+  int n = leaves - iteration + 1;
+  int np = n - 1;
 
-  return (pow(n/k - 0.5, k) * exp(k)) / (sqrt(2 * M_PI * k));
+  return ((double) (n * np)) / 2.0;
 }
 
 /**
@@ -103,7 +99,7 @@ std::vector<Particle*> run_smc(const unsigned int particle_count,
 
   for (int i = 0; i < iterations; i++) {
     std::cerr << "Iteration " << i << std::endl;
-    double rate = approx_rate(i - sequence_count + 1);
+    double rate = compute_rate(sequence_count, i);
 
     resample(particles, i);
     propose(particles, rate, i);
