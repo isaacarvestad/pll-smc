@@ -77,6 +77,7 @@ class PhyloTreeNode {
 
   std::string label;
   double height;
+  double ln_likelihood;
 
   double* clv;
   unsigned int* scale_buffer;

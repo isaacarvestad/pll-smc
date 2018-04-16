@@ -32,6 +32,26 @@ PhyloForest& PhyloForest::operator=(const PhyloForest& original) {
 PhyloForest::~PhyloForest() {
 }
 
+double compute_ln_likelihood(double* clv, unsigned int* scale_buffer, const pll_partition_t* p) {
+  const unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
+
+  return pll_core_root_loglikelihood(p->states,
+                                     p->sites,
+                                     p->rate_cats,
+
+                                     clv,
+                                     scale_buffer,
+
+                                     p->frequencies,
+                                     p->rate_weights,
+                                     p->pattern_weights,
+                                     p->prop_invar,
+                                     p->invariant,
+                                     parameter_indices,
+                                     NULL,
+                                     p->attributes);
+}
+
 void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
                                       const unsigned int sequence_lengths) {
 
@@ -55,11 +75,11 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
     delete(node->scale_buffer);
     node->clv = p->clv[i];
     node->scale_buffer = nullptr;
+    node->ln_likelihood = compute_ln_likelihood(node->clv, nullptr, p);
 
     roots.push_back(node);
   }
 }
-
 
 std::shared_ptr<PhyloTreeNode> PhyloForest::connect(int i, int j, double height_delta) {
   assert(roots.size() > 1 && "Expected more than one root");
@@ -151,6 +171,10 @@ std::shared_ptr<PhyloTreeNode> PhyloForest::connect(int i, int j, double height_
                              p->attributes
                              );
 
+  parent->ln_likelihood = compute_ln_likelihood(parent->clv, nullptr, p);
+
+  assert(parent->ln_likelihood <= 0 && "Likelihood can't be more than 100%");
+
   // Remove children
   remove_roots(i, j);
   // Add new internal node
@@ -159,40 +183,15 @@ std::shared_ptr<PhyloTreeNode> PhyloForest::connect(int i, int j, double height_
   return parent;
 }
 
-double compute_ln_likelihood(double* clv, unsigned int* scale_buffer, const pll_partition_t* p) {
-  const unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
-
-  return pll_core_root_loglikelihood(p->states,
-                                     p->sites,
-                                     p->rate_cats,
-
-                                     clv,
-                                     scale_buffer,
-
-                                     p->frequencies,
-                                     p->rate_weights,
-                                     p->pattern_weights,
-                                     p->prop_invar,
-                                     p->invariant,
-                                     parameter_indices,
-                                     NULL,
-                                     p->attributes);
-}
-
 double PhyloForest::likelihood_factor(std::shared_ptr<PhyloTreeNode> root) {
   assert(root->edge_l && root->edge_r && "Root cannot be a leaf");
 
   std::shared_ptr<PhyloTreeNode> left = root->edge_l->child;
   std::shared_ptr<PhyloTreeNode> right = root->edge_r->child;
 
-  /*
-  double ln_m = compute_ln_likelihood(root->clv, root->scale_buffer, reference_partition);
-  double ln_l = compute_ln_likelihood(left->clv, left->scale_buffer, reference_partition);
-  double ln_r = compute_ln_likelihood(right->clv, right->scale_buffer, reference_partition);
-  */
-  double ln_m = compute_ln_likelihood(root->clv, nullptr, reference_partition);
-  double ln_l = compute_ln_likelihood(left->clv, nullptr, reference_partition);
-  double ln_r = compute_ln_likelihood(right->clv, nullptr, reference_partition);
+  double ln_m = root->ln_likelihood;
+  double ln_l = left->ln_likelihood;
+  double ln_r = right->ln_likelihood;
 
   assert(ln_m <= 0 && ln_l <= 0 && ln_r <= 0 && "Likelihood can't be more than 100%");
 
