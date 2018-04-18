@@ -22,12 +22,10 @@ void print_tree(std::shared_ptr<PhyloTreeNode> root, std::ostream &stream) {
 }
 
 int main(int argc, char* argv[]) {
-  unsigned int particle_count;
+  unsigned int particle_count = 1000;
   if (argc < 2) {
     std::cerr << "Missing Fasta file path argument!";
     return 1;
-  } else if (argc == 2) {
-    particle_count = 1000;
   } else if (argc == 3) {
     particle_count = atoi(argv[2]);
   }
