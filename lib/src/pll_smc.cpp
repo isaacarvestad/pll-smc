@@ -46,12 +46,8 @@ const pll_partition_t* create_reference_partition(const std::vector<std::pair<st
   }
 
   const unsigned int rate_category_count = 4;
-  const double rate_categories[4] =
-  { 0.13695378267140107,
-    0.47675185617665189,
-    0.99999999997958422,
-    2.38629436117236260
-  };
+  double rate_categories[4] = { 0, 0, 0, 0 };
+  pll_compute_gamma_cats(1, 4, rate_categories, PLL_GAMMA_RATES_MEAN);
 
   const unsigned int subst_model_count = 1;
   const double subst_params[6] = { 1, 1, 1, 1, 1, 1 };
