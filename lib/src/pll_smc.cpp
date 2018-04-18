@@ -24,10 +24,10 @@ std::vector<Particle*> create_particles(const unsigned int count,
     assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
   }
 
-  const double initial_weight = 1.0 / (double) count;
+  const double initial_weight = log(1.0 / (double) count);
 
   Particle particle = Particle(initial_weight, sequences, sequence_lengths, reference_partition, pll_buffer_manager);
-  std::vector<Particle*> particles(count, nullptr);
+  std::vector<Particle*> particles(count * 2, nullptr);
   for (auto &p : particles) {
     p = new Particle(particle);
   }
@@ -113,11 +113,15 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? 0 : particles.size() / 2;
 
   std::vector<double> normalized_weights;
-  double ess_sum;
+  double ess_sum = 0.0;
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
     double normalized_weight = particles[i]->normalized_weight;
+
     normalized_weights.push_back(normalized_weight);
     ess_sum += normalized_weight * normalized_weight;
+
+    assert(normalized_weight <= 1.0);
+    assert(ess_sum <= 1);
   }
   double ess = 1 / ess_sum;
 

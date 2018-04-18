@@ -35,9 +35,9 @@ int main(int argc, char* argv[]) {
   std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
 
   std::cerr << "Running SMC for " << sequences.size() - 1 <<
-    " iterations with 2 * " << particle_count << " particles" << std::endl;
+    " iterations with " << particle_count << " particles" << std::endl;
 
-  std::vector<Particle*> particles = run_smc(2*particle_count, sequences);
+  std::vector<Particle*> particles = run_smc(particle_count, sequences);
 
   Particle* particle = nullptr;
   double max = __DBL_MIN__;

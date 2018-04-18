@@ -6,7 +6,7 @@ Particle::Particle(double weight,
                    const pll_partition_t* reference_partition,
                    PLLBufferManager* const pll_buffer_manager)
   : weight(weight),
-    normalized_weight(1)
+    normalized_weight(exp(weight))
 {
   forest = new PhyloForest(sequences, sequence_lengths, reference_partition, pll_buffer_manager);
 

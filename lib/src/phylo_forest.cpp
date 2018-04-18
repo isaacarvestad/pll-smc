@@ -171,7 +171,7 @@ std::shared_ptr<PhyloTreeNode> PhyloForest::connect(int i, int j, double height_
                              p->attributes
                              );
 
-  parent->ln_likelihood = compute_ln_likelihood(parent->clv, nullptr, p);
+  parent->ln_likelihood = compute_ln_likelihood(parent->clv, parent->scale_buffer, p);
 
   assert(parent->ln_likelihood <= 0 && "Likelihood can't be more than 100%");
 
