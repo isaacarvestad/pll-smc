@@ -1,10 +1,10 @@
-#include <iostream>
 #include <algorithm>
-#include <memory>
 #include <float.h>
+#include <iostream>
+#include <memory>
 
-#include "pll_smc.h"
 #include "fasta_helper.h"
+#include "pll_smc.h"
 
 void print_tree(std::shared_ptr<PhyloTreeNode> root, std::ostream &stream) {
   if (root->edge_l && root->edge_r) {
@@ -21,7 +21,7 @@ void print_tree(std::shared_ptr<PhyloTreeNode> root, std::ostream &stream) {
   }
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   unsigned int particle_count = 1000;
   if (argc < 2) {
     std::cerr << "Missing Fasta file path argument!";
@@ -30,18 +30,20 @@ int main(int argc, char* argv[]) {
     particle_count = atoi(argv[2]);
   }
 
-  std::vector<std::pair<std::string, std::string>> sequences = parse_sequences(argv[1]);
+  std::vector<std::pair<std::string, std::string>> sequences =
+      parse_sequences(argv[1]);
 
-  std::cerr << "Running SMC for " << sequences.size() - 1 <<
-    " iterations with " << particle_count << " particles" << std::endl;
+  std::cerr << "Running SMC for " << sequences.size() - 1 << " iterations with "
+            << particle_count << " particles" << std::endl;
 
-  std::vector<Particle*> particles = run_smc(particle_count, sequences);
+  std::vector<Particle *> particles = run_smc(particle_count, sequences);
 
-  Particle* particle = nullptr;
+  Particle *particle = nullptr;
   double max = __DBL_MIN__;
 
   for (auto &p : particles) {
-    if (p->get_roots().size() > 1) continue;
+    if (p->get_roots().size() > 1)
+      continue;
     if (p->normalized_weight > max) {
       max = p->normalized_weight;
       particle = p;
@@ -53,12 +55,15 @@ int main(int argc, char* argv[]) {
   }
 
   if (particle) {
-    std::cerr << "Weight: " << particle->weight << ", Normalized weight: " << particle->normalized_weight << std::endl;
+    std::cerr << "Weight: " << particle->weight
+              << ", Normalized weight: " << particle->normalized_weight
+              << std::endl;
 
     assert(particle->get_roots().size() == 1);
     print_tree(particle->get_roots()[0], std::cerr);
     std::cout << ";" << std::endl;
   } else {
-    std::cerr << "Couldn't find particle with largest normalized weight" << std::endl;
+    std::cerr << "Couldn't find particle with largest normalized weight"
+              << std::endl;
   }
 }
