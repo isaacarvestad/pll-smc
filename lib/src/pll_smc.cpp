@@ -4,7 +4,7 @@ double compute_rate(int leaves, int iteration) {
   int n = leaves - iteration + 1;
   int np = n - 1;
 
-  return ((double) (n * np)) / 2.0;
+  return ((double)(n * np)) / 2.0;
 }
 
 /**
@@ -13,21 +13,23 @@ double compute_rate(int leaves, int iteration) {
 
    Each particle starts with a weight of 1/'count'.
  */
-std::vector<Particle*> create_particles(const unsigned int count,
-                                        const std::vector<std::pair<std::string, std::string>> sequences,
-                                        const pll_partition_t* reference_partition,
-                                        PLLBufferManager* const pll_buffer_manager)
-{
+std::vector<Particle *> create_particles(
+    const unsigned int count,
+    const std::vector<std::pair<std::string, std::string>> sequences,
+    const pll_partition_t *reference_partition,
+    PLLBufferManager *const pll_buffer_manager) {
   assert(sequences.size() > 0 && "Expected at least one sequence");
   const unsigned int sequence_lengths = sequences[0].second.length();
   for (auto &s : sequences) {
-    assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
+    assert(s.second.length() == sequence_lengths &&
+           "Sequence lengths do not match");
   }
 
-  const double initial_weight = log(1.0 / (double) count);
+  const double initial_weight = log(1.0 / (double)count);
 
-  Particle particle = Particle(initial_weight, sequences, sequence_lengths, reference_partition, pll_buffer_manager);
-  std::vector<Particle*> particles(count * 2, nullptr);
+  Particle particle = Particle(initial_weight, sequences, sequence_lengths,
+                               reference_partition, pll_buffer_manager);
+  std::vector<Particle *> particles(count * 2, nullptr);
   for (auto &p : particles) {
     p = new Particle(particle);
   }
@@ -38,32 +40,33 @@ std::vector<Particle*> create_particles(const unsigned int count,
 /**
 
  */
-const pll_partition_t* create_reference_partition(const std::vector<std::pair<std::string, std::string>> sequences) {
+const pll_partition_t *create_reference_partition(
+    const std::vector<std::pair<std::string, std::string>> sequences) {
   assert(sequences.size() > 0 && "Expected at least one sequence");
   const unsigned int sequence_lengths = sequences[0].second.length();
   for (auto &s : sequences) {
-    assert(s.second.length() == sequence_lengths && "Sequence lengths do not match");
+    assert(s.second.length() == sequence_lengths &&
+           "Sequence lengths do not match");
   }
 
   const unsigned int rate_category_count = 4;
-  double rate_categories[4] = { 0, 0, 0, 0 };
+  double rate_categories[4] = {0, 0, 0, 0};
   pll_compute_gamma_cats(1, 4, rate_categories, PLL_GAMMA_RATES_MEAN);
 
   const unsigned int subst_model_count = 1;
-  const double subst_params[6] = { 1, 1, 1, 1, 1, 1 };
+  const double subst_params[6] = {1, 1, 1, 1, 1, 1};
 
   const unsigned int nucleotide_states = 4;
-  const double nucleotide_frequencies[4] = { 0.25, 0.25, 0.25, 0.25 };
+  const double nucleotide_frequencies[4] = {0.25, 0.25, 0.25, 0.25};
 
-  pll_partition* partition = pll_partition_create(sequences.size(),
-                                                  0, // Don't allocate any inner CLV's.
-                                                  nucleotide_states,
-                                                  sequence_lengths,
-                                                  subst_model_count,
-                                                  0, // Don't allocate any pmatrices.
-                                                  rate_category_count,
-                                                  0, // Don't allocate any scale buffers.
-                                                  PLL_ATTRIB_ARCH_SSE);
+  pll_partition *partition = pll_partition_create(
+      sequences.size(),
+      0, // Don't allocate any inner CLV's.
+      nucleotide_states, sequence_lengths, subst_model_count,
+      0, // Don't allocate any pmatrices.
+      rate_category_count,
+      0, // Don't allocate any scale buffers.
+      PLL_ATTRIB_ARCH_SSE);
 
   assert(partition);
   pll_set_frequencies(partition, 0, nucleotide_frequencies);
@@ -82,13 +85,16 @@ const pll_partition_t* create_reference_partition(const std::vector<std::pair<st
   return partition;
 }
 
-std::vector<Particle*> run_smc(const unsigned int particle_count,
-                               const std::vector<std::pair<std::string, std::string>> sequences) {
+std::vector<Particle *>
+run_smc(const unsigned int particle_count,
+        const std::vector<std::pair<std::string, std::string>> sequences) {
 
-  const pll_partition_t* reference_partition = create_reference_partition(sequences);
-  PLLBufferManager* pll_buffer_manager = new PLLBufferManager;
+  const pll_partition_t *reference_partition =
+      create_reference_partition(sequences);
+  PLLBufferManager *pll_buffer_manager = new PLLBufferManager;
 
-  std::vector<Particle*> particles = create_particles(particle_count, sequences, reference_partition, pll_buffer_manager);
+  std::vector<Particle *> particles = create_particles(
+      particle_count, sequences, reference_partition, pll_buffer_manager);
 
   const unsigned int sequence_count = sequences.size();
   const unsigned int iterations = sequence_count - 1;
@@ -105,7 +111,8 @@ std::vector<Particle*> run_smc(const unsigned int particle_count,
   return particles;
 }
 
-void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
+void resample(std::vector<Particle *> &particles,
+              const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? 0 : particles.size() / 2;
 
   std::vector<double> normalized_weights;
@@ -124,16 +131,19 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   std::cerr << "ESS: " << ess << std::endl;
 
   std::random_device random;
-  std::discrete_distribution<int> dist(normalized_weights.begin(), normalized_weights.end());
+  std::discrete_distribution<int> dist(normalized_weights.begin(),
+                                       normalized_weights.end());
 
-  for (int i = particles.size() / 2 - offset; i < particles.size() - offset; i++) {
+  for (int i = particles.size() / 2 - offset; i < particles.size() - offset;
+       i++) {
     int index = dist(random);
 
     *particles[i] = *particles[index + offset];
   }
 }
 
-void propose(std::vector<Particle*> &particles, const double rate, const unsigned int iteration) {
+void propose(std::vector<Particle *> &particles, const double rate,
+             const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
@@ -141,12 +151,14 @@ void propose(std::vector<Particle*> &particles, const double rate, const unsigne
   }
 }
 
-void normalize_weights(std::vector<Particle*> &particles, const unsigned int iteration) {
+void normalize_weights(std::vector<Particle *> &particles,
+                       const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
   double max = __DBL_MIN__;
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
-    if (particles[i]->weight > max) max = particles[i]->weight;
+    if (particles[i]->weight > max)
+      max = particles[i]->weight;
   }
 
   double sum = 0.0;
@@ -156,6 +168,7 @@ void normalize_weights(std::vector<Particle*> &particles, const unsigned int ite
   }
 
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
-    particles[i]->normalized_weight = exp(particles[i]->normalized_weight) / sum;
+    particles[i]->normalized_weight =
+        exp(particles[i]->normalized_weight) / sum;
   }
 }
