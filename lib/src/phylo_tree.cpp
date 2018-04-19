@@ -9,6 +9,8 @@ PhyloTreeEdge::PhyloTreeEdge(PLLBufferManager *manager,
   } else {
     pmatrix = manager->pmatrix_buffer.top();
     manager->pmatrix_buffer.pop();
+
+    std::memset(pmatrix, 0, pmatrix_size);
   }
 }
 
@@ -30,6 +32,8 @@ PhyloTreeNode::PhyloTreeNode(PLLBufferManager *manager,
   } else {
     clv = manager->clv_buffer.top();
     manager->clv_buffer.pop();
+
+    std::memset(clv, 0, clv_size);
   }
 
   if (manager->scale_buffer_buffer.empty()) {
@@ -37,6 +41,8 @@ PhyloTreeNode::PhyloTreeNode(PLLBufferManager *manager,
   } else {
     scale_buffer = manager->scale_buffer_buffer.top();
     manager->scale_buffer_buffer.pop();
+
+    std::memset(scale_buffer, 0, scale_buffer_size);
   }
 }
 
