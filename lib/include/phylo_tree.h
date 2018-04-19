@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <cstring>
 
 #include "pll_buffer_manager.h"
 

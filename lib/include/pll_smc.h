@@ -1,8 +1,10 @@
 #ifndef LIB_PLL_SMC_H
 #define LIB_PLL_SMC_H
 
-#include <iostream>
+#include <float.h>
 #include <libpll/pll.h>
+
+#include <iostream>
 #include <random>
 #include <string>
 #include <vector>
