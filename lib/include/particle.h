@@ -1,10 +1,10 @@
 #ifndef PARTICLE_SMC
 #define PARTICLE_SMC
 
+#include <memory>
+#include <random>
 #include <string>
 #include <vector>
-#include <random>
-#include <memory>
 
 #include "phylo_forest.h"
 
@@ -12,10 +12,10 @@
    An SMC particle contains a weight as well as an underlying forest state.
  */
 class Particle {
-  PhyloForest* forest;
+  PhyloForest *forest;
   std::mt19937 mt_generator;
 
- public:
+public:
   double weight;
   double normalized_weight;
 
@@ -26,8 +26,8 @@ class Particle {
   Particle(double weight,
            const std::vector<std::pair<std::string, std::string>> sequences,
            const unsigned int sequence_lengths,
-           const pll_partition_t* reference_partition,
-           PLLBufferManager* const pll_buffer_manager);
+           const pll_partition_t *reference_partition,
+           PLLBufferManager *const pll_buffer_manager);
 
   /**
      Copy constructor. Copies the particles forest but creates a new random
@@ -38,7 +38,7 @@ class Particle {
   /**
      Copy assignment. Copies weight and forest but keeps own random generator.
    */
-  Particle& operator=(const Particle& original);
+  Particle &operator=(const Particle &original);
 
   /**
      Frees the particle.
@@ -56,12 +56,14 @@ class Particle {
   /**
      Returns the current roots of the particles forest.
    */
-  std::vector<std::shared_ptr<PhyloTreeNode>> get_roots() const { return forest->get_roots(); };
+  std::vector<std::shared_ptr<PhyloTreeNode>> get_roots() const {
+    return forest->get_roots();
+  };
 
   /**
      Returns the particles forest.
    */
-  PhyloForest* get_forest() const { return forest; };
+  PhyloForest *get_forest() const { return forest; };
 };
 
 #endif

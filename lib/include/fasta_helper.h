@@ -12,6 +12,7 @@
 
    Implementation based on PLL "newick-fasta-unrooted" example.
  */
-std::vector<std::pair<std::string, std::string>> parse_sequences(std::string file_path);
+std::vector<std::pair<std::string, std::string>>
+parse_sequences(std::string file_path);
 
 #endif

@@ -1,9 +1,9 @@
 #ifndef LIB_PLL_SMC_PHYLO_TREE_H
 #define LIB_PLL_SMC_PHYLO_TREE_H
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include "pll_buffer_manager.h"
 
@@ -18,17 +18,15 @@ class PhyloTreeEdge {
   /**
      The PLLBufferManager to use when recyling the pmatrix.
    */
-  PLLBufferManager* manager;
+  PLLBufferManager *manager;
 
- public:
+public:
   /**
      Constructs an edge. Attempts to re-use an existing pmatrix buffer if there
      is one available in 'manager'.
    */
-  PhyloTreeEdge(PLLBufferManager* manager,
-                std::shared_ptr<PhyloTreeNode> child,
-                double length,
-                unsigned int pmatrix_size);
+  PhyloTreeEdge(PLLBufferManager *manager, std::shared_ptr<PhyloTreeNode> child,
+                double length, unsigned int pmatrix_size);
 
   /**
      Destroys the edge and adds the pmatrix buffer to the 'manager'.
@@ -38,9 +36,8 @@ class PhyloTreeEdge {
   std::shared_ptr<PhyloTreeNode> child;
 
   double length;
-  double* pmatrix;
+  double *pmatrix;
 };
-
 
 /**
    A node in a PhyloTree is either a leaf or points to two edges. A node also
@@ -51,19 +48,17 @@ class PhyloTreeNode {
   /**
      The PLLBufferManager to use when recycling the pmatrix.
    */
-  PLLBufferManager* manager;
+  PLLBufferManager *manager;
 
- public:
+public:
   /**
      Constructs a node. Attempts to re-use an exiting clv buffer and scale
      buffer from the 'manager'.
    */
-  PhyloTreeNode(PLLBufferManager* manager,
+  PhyloTreeNode(PLLBufferManager *manager,
                 std::shared_ptr<PhyloTreeEdge> edge_l,
-                std::shared_ptr<PhyloTreeEdge> edge_r,
-                std::string label,
-                double height,
-                unsigned int clv_size,
+                std::shared_ptr<PhyloTreeEdge> edge_r, std::string label,
+                double height, unsigned int clv_size,
                 unsigned int scale_buffer_size);
 
   /**
@@ -79,8 +74,8 @@ class PhyloTreeNode {
   double height;
   double ln_likelihood;
 
-  double* clv;
-  unsigned int* scale_buffer;
+  double *clv;
+  unsigned int *scale_buffer;
 };
 
 #endif

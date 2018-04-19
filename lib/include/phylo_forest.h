@@ -1,18 +1,18 @@
 #ifndef PHYLO_FOREST_H
 #define PHYLO_FOREST_H
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include <libpll/pll.h>
 
-#include "pll_buffer_manager.h"
 #include "phylo_tree.h"
+#include "pll_buffer_manager.h"
 
 class PhyloForest {
-  const pll_partition_t* reference_partition;
-  PLLBufferManager* const pll_buffer_manager;
+  const pll_partition_t *reference_partition;
+  PLLBufferManager *const pll_buffer_manager;
 
   double forest_height;
   std::vector<std::shared_ptr<PhyloTreeNode>> roots;
@@ -20,25 +20,24 @@ class PhyloForest {
   /**
      Sets the sequences of the partition.
    */
-  void setup_sequences_pll(std::vector<std::pair<std::string, std::string>> sequences,
-                           const unsigned int sequence_lengths);
-
+  void setup_sequences_pll(
+      std::vector<std::pair<std::string, std::string>> sequences,
+      const unsigned int sequence_lengths);
 
   /**
      Removes two root nodes with index i, j respectively from the root vector.
    */
   void remove_roots(int i, int j);
 
- public:
-
+public:
   /**
      Creates a PhyloForest instance using a vector of pairs of (label, sequence)
      and a constant specifying a length of every sequence.
    */
   PhyloForest(const std::vector<std::pair<std::string, std::string>> sequences,
               const unsigned int sequence_lengths,
-              const pll_partition_t* reference_partition,
-              PLLBufferManager* const pll_buffer_manager);
+              const pll_partition_t *reference_partition,
+              PLLBufferManager *const pll_buffer_manager);
 
   /**
      Copy constructor
@@ -48,7 +47,7 @@ class PhyloForest {
   /**
      Copy reference partition, forest height and root vector.
    */
-  PhyloForest& operator=(const PhyloForest& original);
+  PhyloForest &operator=(const PhyloForest &original);
 
   /**
      Remove PLL partition. Does not delete the root vector trees since they may
@@ -82,7 +81,9 @@ class PhyloForest {
   /**
      Return the current root nodes of the forrest.
    */
-  std::vector<std::shared_ptr<PhyloTreeNode>> get_roots() const { return roots; }
+  std::vector<std::shared_ptr<PhyloTreeNode>> get_roots() const {
+    return roots;
+  }
 
   /**
      Number of root nodes in the forrest.
