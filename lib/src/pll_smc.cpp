@@ -82,6 +82,7 @@ const pll_partition_t *create_reference_partition(
   // Once for each param index
   pll_update_eigen(partition, 0);
 
+
   return partition;
 }
 
@@ -155,7 +156,7 @@ void normalize_weights(std::vector<Particle *> &particles,
                        const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
-  double max = __DBL_MIN__;
+  double max = -DBL_MAX;
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
     if (particles[i]->weight > max)
       max = particles[i]->weight;
