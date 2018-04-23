@@ -33,8 +33,9 @@ void Particle::shallow_copy(const Particle &original) {
   forest->shallow_copy(*original.get_forest());
 }
 
-void Particle::propose(const double rate) {
-  assert(forest->root_count() > 1 && "Cannot propose a continuation on a single root node");
+void Particle::propose() {
+  assert(forest->root_count() > 1 &&
+         "Cannot propose a continuation on a single root node");
 
   std::uniform_int_distribution<int> int_dist(0, forest->root_count() - 1);
   int i = int_dist(mt_generator);
@@ -45,10 +46,16 @@ void Particle::propose(const double rate) {
     if (j == i) j = -1;
   }
 
+  double root_count = forest->root_count();
+  double rate = root_count * (root_count - 1) / 2;
+
   std::exponential_distribution<double> exponential_dist(rate);
   double height = exponential_dist(mt_generator);
+  double ln_height_prior = log(rate) * (-rate * height);
 
   phylo_tree_node* node = forest->connect(i, j, height);
 
-  weight = forest->likelihood_factor(node);
+  weight = forest->likelihood_factor(node) + ln_height_prior;
+
+  assert(!isnan(weight) && !isinf(weight));
 }

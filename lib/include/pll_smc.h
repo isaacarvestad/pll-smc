@@ -33,11 +33,8 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration);
 
 /**
    Proposes an update to a partical using the particals proposal method.
-
-   'rate' specifies the parameter used in sampling the exponentially distributed
-   branch lengths.
  */
-void propose(std::vector<Particle*> &particles, const double rate, const unsigned int iteration);
+void propose(std::vector<Particle *> &particles, const unsigned int iteration);
 
 /**
    Normalizes the weight of the particle.

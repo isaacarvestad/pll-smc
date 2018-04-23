@@ -1,16 +1,5 @@
 #include "pll_smc.h"
 
-/**
-   Approximates the exponential branch length. See
-   https://en.wikipedia.org/wiki/Binomial_coefficient#Bounds_and_asymptotic_formulas
- */
-double approx_rate(int x) {
-  double n = (double) x;
-  double k = 2;
-
-  return (pow(n/k - 0.5, k) * exp(k)) / (sqrt(2 * M_PI * k));
-}
-
 std::vector<Particle*> create_particles(const unsigned int count,
                                         const std::vector<std::pair<std::string, std::string>> sequences)
 {
@@ -37,10 +26,9 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
 
   for (int i = 0; i < iterations; i++) {
     std::cerr << "Iteration " << i << std::endl;
-    double rate = approx_rate(i - sequence_count + 1);
 
     resample(particles, i);
-    propose(particles, rate, i);
+    propose(particles, i);
     normalize_weights(particles, i);
   }
 
@@ -72,11 +60,11 @@ void resample(std::vector<Particle*> &particles, const unsigned int iteration) {
   }
 }
 
-void propose(std::vector<Particle*> &particles, const double rate, const unsigned int iteration) {
+void propose(std::vector<Particle *> &particles, const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
-    particles[i]->propose(rate);
+    particles[i]->propose();
   }
 }
 
