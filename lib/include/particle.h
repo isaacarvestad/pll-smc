@@ -47,11 +47,8 @@ public:
 
   /**
      Proposes an update to the particle by following the proposal distribution.
-
-     'rate' is used to create exponential distribution that the branch lengths
-     are sampled from.
    */
-  void propose(const double rate);
+  void propose();
 
   /**
      Returns the current roots of the particles forest.

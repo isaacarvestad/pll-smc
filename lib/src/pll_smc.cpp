@@ -1,12 +1,5 @@
 #include "pll_smc.h"
 
-double compute_rate(int leaves, int iteration) {
-  int n = leaves - iteration + 1;
-  int np = n - 1;
-
-  return ((double)(n * np)) / 2.0;
-}
-
 /**
    Creates a vector with 'count' number of particles, each using the given
    vector of sequences.
@@ -102,10 +95,9 @@ run_smc(const unsigned int particle_count,
 
   for (int i = 0; i < iterations; i++) {
     std::cerr << "Iteration " << i << std::endl;
-    double rate = compute_rate(sequence_count, i);
 
     resample(particles, i);
-    propose(particles, rate, i);
+    propose(particles, i);
     normalize_weights(particles, i);
   }
 
@@ -143,12 +135,11 @@ void resample(std::vector<Particle *> &particles,
   }
 }
 
-void propose(std::vector<Particle *> &particles, const double rate,
-             const unsigned int iteration) {
+void propose(std::vector<Particle *> &particles, const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
-    particles[i]->propose(rate);
+    particles[i]->propose();
   }
 }
 

@@ -27,6 +27,7 @@ Particle &Particle::operator=(const Particle &original) {
     return *this;
 
   weight = original.weight;
+  normalized_weight = original.normalized_weight;
   *forest = *original.forest;
 
   return *this;
@@ -34,7 +35,7 @@ Particle &Particle::operator=(const Particle &original) {
 
 Particle::~Particle() { delete (forest); }
 
-void Particle::propose(const double rate) {
+void Particle::propose() {
   assert(forest->root_count() > 1 &&
          "Cannot propose a continuation on a single root node");
 
@@ -48,11 +49,17 @@ void Particle::propose(const double rate) {
       j = -1;
   }
 
+  double root_count = forest->root_count();
+  double rate = root_count * (root_count - 1) / 2;
+
   std::exponential_distribution<double> exponential_dist(rate);
   double height = exponential_dist(mt_generator);
 
+  double ln_height_prior = log(rate) * (-rate * height);
+
   std::shared_ptr<PhyloTreeNode> node = forest->connect(i, j, height);
 
-  weight = forest->likelihood_factor(node);
+  weight = forest->likelihood_factor(node) + ln_height_prior;
+
   assert(!isnan(weight) && !isinf(weight));
 }
