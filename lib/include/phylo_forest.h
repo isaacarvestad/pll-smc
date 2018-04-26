@@ -23,6 +23,8 @@ struct phylo_tree_node {
   phylo_tree_node* left;
   phylo_tree_node* right;
   phylo_tree_node* parent;
+
+  double ln_likelihood;
 };
 
 /**

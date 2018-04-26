@@ -102,13 +102,18 @@ void PhyloForest::setup_sequences_pll(std::vector<std::pair<std::string, std::st
         .pmatrix_index = 0,
         .left = nullptr,
         .right = nullptr,
-        .parent = nullptr
+        .parent = nullptr,
+        .ln_likelihood = 0.0
       };
+
+    unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
+    node->ln_likelihood = pll_compute_root_loglikelihood(partition_manager->get_partition(),
+                                                         node->clv_index, node->scaler_index,
+                                                         parameter_indices, NULL);
 
     forest_node_count++;
     roots.push_back(node);
   }
-
 }
 
 
@@ -144,7 +149,8 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
       .pmatrix_index = 0,
       .left = left,
       .right = right,
-      .parent = nullptr
+      .parent = nullptr,
+      .ln_likelihood = 0.0
     };
 
   forest_node_count++;
@@ -171,7 +177,7 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   double branch_lengths[2] = { combined->left->length,
                                combined->right->length };
 
-  unsigned int parameter_indices[1] = { 0 };
+  unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
   pll_update_prob_matrices(partition_manager->get_partition(),
                            parameter_indices,
@@ -181,30 +187,23 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
 
   pll_update_partials(partition_manager->get_partition(), operations, 1);
 
+  combined->ln_likelihood = pll_compute_root_loglikelihood(partition_manager->get_partition(),
+                                                           combined->clv_index, combined->scaler_index,
+                                                           parameter_indices, NULL);
+
   return combined;
 }
 
 double PhyloForest::likelihood_factor(phylo_tree_node* root) {
   assert(root->left && root->right && "Root cannot be a leaf");
 
-  unsigned int parameter_indices[1] = { 0 };
+  double ln_m = root->ln_likelihood;
+  double ln_l = root->left->ln_likelihood;
+  double ln_r = root->right->ln_likelihood;
 
-  double l_merged = pll_compute_root_loglikelihood(partition_manager->get_partition(),
-                                                   root->clv_index, root->scaler_index,
-                                                   parameter_indices, NULL);
-  double l_left = pll_compute_root_loglikelihood(partition_manager->get_partition(),
-                                                 root->left->clv_index, root->left->scaler_index,
-                                                 parameter_indices, NULL);
+  assert(ln_m <= 0 && ln_l <= 0 && ln_r <= 0 && "Likelihood can't be more than 100%");
 
-  double l_right = pll_compute_root_loglikelihood(partition_manager->get_partition(),
-                                                  root->right->clv_index, root->right->scaler_index,
-                                                  parameter_indices, NULL);
-
-  assert(l_merged <= 0 && "Likelihood can't be more than 100%");
-  assert(l_left <= 0 && "Likelihood can't be more than 100%");
-  assert(l_right <= 0 && "Likelihood can't be more than 100%");
-
-  return l_merged - (l_left + l_right);
+  return ln_m - (ln_l + ln_r);
 }
 
 void PhyloForest::remove_roots(int i, int j) {
