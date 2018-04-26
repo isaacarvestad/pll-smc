@@ -161,16 +161,16 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   // Add new internal node
   roots.push_back(combined);
 
-  pll_operation_t operation =
-    { .parent_clv_index = combined->clv_index,
-      .parent_scaler_index = combined->scaler_index,
-      .child1_clv_index = combined->left->clv_index,
-      .child2_clv_index = combined->right->clv_index,
-      .child1_matrix_index = combined->left->pmatrix_index,
-      .child2_matrix_index = combined->right->pmatrix_index,
-      .child1_scaler_index = combined->left->scaler_index,
-      .child2_scaler_index = combined->right->scaler_index,
-    };
+  pll_operation_t operation;
+  operation.parent_clv_index = combined->clv_index;
+  operation.parent_scaler_index = combined->scaler_index;
+  operation.child1_clv_index = combined->left->clv_index;
+  operation.child2_clv_index = combined->right->clv_index;
+  operation.child1_matrix_index = combined->left->pmatrix_index;
+  operation.child2_matrix_index = combined->right->pmatrix_index;
+  operation.child1_scaler_index = combined->left->scaler_index;
+  operation.child2_scaler_index = combined->right->scaler_index;
+
   pll_operation_t operations[1] = { operation };
   unsigned int matrix_indices[2] = { operation.child1_matrix_index,
                                      operation.child2_matrix_index };
