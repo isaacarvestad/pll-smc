@@ -9,7 +9,7 @@ void print_tree(phylo_tree_node* root, std::ostream &stream) {
   if (root->left && root->right) {
     stream << "(";
     print_tree(root->left, stream);
-    stream << ", ";
+    stream << ",";
     print_tree(root->right, stream);
     stream << "):" << root->length;
   } else {
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
 
     assert(particle->get_roots().size() == 1);
     print_tree(particle->get_roots()[0], std::cerr);
-    std::cout << ";" << std::endl;
+    std::cerr << ";" << std::endl;
   } else {
     std::cerr << "Couldn't find particle with largest normalized weight" << std::endl;
   }
