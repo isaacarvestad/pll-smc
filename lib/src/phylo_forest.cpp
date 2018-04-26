@@ -50,7 +50,7 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
   // Number of states which a nucleotide can have {A,C,G,T}
   const unsigned int nucleotide_states = 4;
   //
-  const unsigned int substitution_model_count = 4;
+  const unsigned int substitution_model_count = 1;
 
   // One scale buffer per inner node
   const unsigned int scale_buffer_count = inner_node_count;
@@ -66,7 +66,6 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
 
   const double nucleotide_frequencies[4] = { 0.25, 0.25, 0.25, 0.25 };
   double substitution_parameters[6] = { 1, 1, 1, 1, 1, 1 };
-  unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
 
   partition_manager = new PartitionManager(leaf_node_count,
                                            inner_node_count,
@@ -76,7 +75,7 @@ void PhyloForest::setup_pll(const unsigned int leaf_node_count, const unsigned i
                                            branch_count,
                                            rate_category_count,
                                            scale_buffer_count,
-                                           PLL_ATTRIB_ARCH_AVX);
+                                           PLL_ATTRIB_ARCH_SSE);
   assert(partition_manager);
 
   pll_set_frequencies(partition_manager->get_partition(), 0, nucleotide_frequencies);
@@ -172,7 +171,7 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
   double branch_lengths[2] = { combined->left->length,
                                combined->right->length };
 
-  unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
+  unsigned int parameter_indices[1] = { 0 };
 
   pll_update_prob_matrices(partition_manager->get_partition(),
                            parameter_indices,
@@ -188,7 +187,7 @@ phylo_tree_node* PhyloForest::connect(int i, int j, double height_delta) {
 double PhyloForest::likelihood_factor(phylo_tree_node* root) {
   assert(root->left && root->right && "Root cannot be a leaf");
 
-  unsigned int parameter_indices[4] = { 0, 0, 0, 0 };
+  unsigned int parameter_indices[1] = { 0 };
 
   double l_merged = pll_compute_root_loglikelihood(partition_manager->get_partition(),
                                                    root->clv_index, root->scaler_index,
