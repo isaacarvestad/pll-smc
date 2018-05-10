@@ -51,11 +51,10 @@ void Particle::propose() {
 
   std::exponential_distribution<double> exponential_dist(rate);
   double height = exponential_dist(mt_generator);
-  double ln_height_prior = log(rate) * (-rate * height);
 
   phylo_tree_node* node = forest->connect(i, j, height);
 
-  weight = forest->likelihood_factor(node) + ln_height_prior;
+  weight = forest->likelihood_factor(node);
 
   assert(!isnan(weight) && !isinf(weight));
 }
