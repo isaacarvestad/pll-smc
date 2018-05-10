@@ -32,13 +32,6 @@ std::vector<Particle*> run_smc(std::vector<Particle*> &particles,
     normalize_weights(particles, i);
   }
 
-  std::random_device random;
-  std::mt19937 generator(random());
-  for (auto &p : particles) {
-    std::exponential_distribution<double> exponential_dist(1);
-    p->get_roots()[0]->length = exponential_dist(generator);
-  }
-
   return particles;
 }
 
@@ -71,7 +64,7 @@ void propose(std::vector<Particle *> &particles, const unsigned int iteration) {
 void normalize_weights(std::vector<Particle*> &particles, const unsigned int iteration) {
   int offset = iteration % 2 == 0 ? particles.size() / 2 : 0;
 
-  double max = __DBL_MIN__;
+  double max = -DBL_MAX;
   for (int i = offset; i < particles.size() / 2 + offset; i++) {
     if (particles[i]->weight > max) max = particles[i]->weight;
   }

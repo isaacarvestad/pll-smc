@@ -6,6 +6,7 @@
 #include <random>
 #include <libpll/pll.h>
 #include <iostream>
+#include <float.h>
 
 #include "partition_manager.h"
 #include "particle.h"
