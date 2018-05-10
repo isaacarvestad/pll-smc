@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
   std::vector<Particle *> particles = run_smc(particle_count, sequences);
 
   Particle *particle = nullptr;
-  double max = __DBL_MIN__;
+  double max = -DBL_MAX;
 
   for (auto &p : particles) {
     if (p->get_roots().size() > 1)
