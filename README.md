@@ -56,4 +56,4 @@ execution. To save the tree distribution we can redirect it to a file.
 - Henrik Lagebrand
 
 ## License
-See [license](LICENSE.md).
+See [license](LICENSE).
