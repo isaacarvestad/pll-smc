@@ -1,0 +1,1020 @@
+desc: 1
+cmd: ./app/pll-smc ../../kandidatarbete/bioinfo/f.fasta
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=311275997
+mem_heap_B=76790273
+mem_heap_extra_B=61263
+mem_stacks_B=0
+heap_tree=detailed
+n5: 76790273 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 60143616 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 60143616 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 60143616 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 60143616 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 60143616 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 60143616 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 60143616 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 60143616 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 6682624 0x1000E8E5D: pll_partition_create (in /usr/local/lib/libpll.0.dylib)
+  n1: 6682624 0x10001BFDF: create_reference_partition(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n1: 6682624 0x10001C336: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+    n0: 6682624 0x100001D36: main (in ./app/pll-smc)
+ n1: 5056000 0x10001B892: create_particles(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >, pll_partition const*, PLLBufferManager*) (in ./app/pll-smc)
+  n1: 5056000 0x10001C3C4: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n0: 5056000 0x100001D36: main (in ./app/pll-smc)
+ n1: 3758976 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 3758976 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 3758976 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 3758976 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 3758976 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 3758976 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 3758976 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 3758976 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 1149057 in 72 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=2
+#-----------
+time=801777689
+mem_heap_B=231219185
+mem_heap_extra_B=86247
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=1148507285
+mem_heap_B=341144033
+mem_heap_extra_B=104031
+mem_stacks_B=0
+heap_tree=detailed
+n5: 341144033 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 308236032 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 308236032 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 308236032 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 308236032 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 308236032 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 308236032 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 308236032 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 308236032 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 19264752 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 19264752 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 19264752 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 19264752 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 19264752 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 19264752 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 19264752 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 19264752 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 6682624 0x1000E8E5D: pll_partition_create (in /usr/local/lib/libpll.0.dylib)
+  n1: 6682624 0x10001BFDF: create_reference_partition(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n1: 6682624 0x10001C336: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+    n0: 6682624 0x100001D36: main (in ./app/pll-smc)
+ n1: 5056000 0x10001B892: create_particles(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >, pll_partition const*, PLLBufferManager*) (in ./app/pll-smc)
+  n1: 5056000 0x10001C3C4: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n0: 5056000 0x100001D36: main (in ./app/pll-smc)
+ n0: 1904625 in 72 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=4
+#-----------
+time=1551390951
+mem_heap_B=467090353
+mem_heap_extra_B=124407
+mem_stacks_B=0
+heap_tree=detailed
+n5: 467090353 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 426434944 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 426434944 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 426434944 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 426434944 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 426434944 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 426434944 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 426434944 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 426434944 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 26652184 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 26652184 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 26652184 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 26652184 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 26652184 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 26652184 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 26652184 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 26652184 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 6682624 0x1000E8E5D: pll_partition_create (in /usr/local/lib/libpll.0.dylib)
+  n1: 6682624 0x10001BFDF: create_reference_partition(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n1: 6682624 0x10001C336: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+    n0: 6682624 0x100001D36: main (in ./app/pll-smc)
+ n1: 5056000 0x10001B892: create_particles(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >, pll_partition const*, PLLBufferManager*) (in ./app/pll-smc)
+  n1: 5056000 0x10001C3C4: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n0: 5056000 0x100001D36: main (in ./app/pll-smc)
+ n0: 2264601 in 72 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=5
+#-----------
+time=1872752353
+mem_heap_B=568114465
+mem_heap_extra_B=140751
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=2112361315
+mem_heap_B=644216273
+mem_heap_extra_B=153063
+mem_stacks_B=0
+heap_tree=detailed
+n4: 644216273 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 592665216 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 592665216 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 592665216 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 592665216 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 592665216 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 592665216 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 592665216 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 592665216 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 37041576 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 37041576 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 37041576 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 37041576 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 37041576 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 37041576 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 37041576 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 37041576 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 7826857 in 73 places, all below massif's threshold (1.00%)
+ n1: 6682624 0x1000E8E5D: pll_partition_create (in /usr/local/lib/libpll.0.dylib)
+  n1: 6682624 0x10001BFDF: create_reference_partition(std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+   n1: 6682624 0x10001C336: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+    n0: 6682624 0x100001D36: main (in ./app/pll-smc)
+#-----------
+snapshot=7
+#-----------
+time=2476011098
+mem_heap_B=759036593
+mem_heap_extra_B=171639
+mem_stacks_B=0
+heap_tree=detailed
+n3: 759036593 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 700422528 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 700422528 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 700422528 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 700422528 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 700422528 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 700422528 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 700422528 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 700422528 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 43776408 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 43776408 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 43776408 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 43776408 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 43776408 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 43776408 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 43776408 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 43776408 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 14837657 in 74 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=8
+#-----------
+time=2903087567
+mem_heap_B=893883713
+mem_heap_extra_B=193455
+mem_stacks_B=0
+heap_tree=detailed
+n3: 893883713 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 826974720 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 826974720 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 826974720 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 826974720 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 826974720 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 826974720 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 826974720 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 826974720 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 51685920 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 51685920 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 51685920 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 51685920 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 51685920 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 51685920 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 51685920 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 51685920 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15223073 in 74 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=9
+#-----------
+time=3201830346
+mem_heap_B=902605553
+mem_heap_extra_B=167687
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=3689977617
+mem_heap_B=902671553
+mem_heap_extra_B=176199
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=3990072726
+mem_heap_B=902708129
+mem_heap_extra_B=181439
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=4327206229
+mem_heap_B=902749881
+mem_heap_extra_B=187351
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=4765951465
+mem_heap_B=903254193
+mem_heap_extra_B=195071
+mem_stacks_B=0
+heap_tree=detailed
+n3: 903254193 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 835745664 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 835745664 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 835745664 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 835745664 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 835745664 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 835745664 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 835745664 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 835745664 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52234104 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52234104 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52234104 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52234104 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52234104 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52234104 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52234104 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52234104 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15274425 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=14
+#-----------
+time=5213413300
+mem_heap_B=903074433
+mem_heap_extra_B=170831
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=5405536836
+mem_heap_B=903100473
+mem_heap_extra_B=174191
+mem_stacks_B=0
+heap_tree=detailed
+n3: 903100473 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 835745664 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 835745664 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 835745664 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 835745664 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 835745664 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 835745664 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 835745664 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 835745664 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52234104 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52234104 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52234104 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52234104 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52234104 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52234104 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52234104 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52234104 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15120705 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=16
+#-----------
+time=5789788908
+mem_heap_B=903148457
+mem_heap_extra_B=180903
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=6045953310
+mem_heap_B=903183177
+mem_heap_extra_B=185383
+mem_stacks_B=0
+heap_tree=detailed
+n3: 903183177 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 835745664 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 835745664 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 835745664 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 835745664 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 835745664 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 835745664 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 835745664 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 835745664 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52234104 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52234104 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52234104 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52234104 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52234104 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52234104 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52234104 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52234104 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15203409 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=18
+#-----------
+time=6494236254
+mem_heap_B=903239841
+mem_heap_extra_B=193215
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=6813435682
+mem_heap_B=903487729
+mem_heap_extra_B=166807
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=7197642412
+mem_heap_B=903539809
+mem_heap_extra_B=173527
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=21
+#-----------
+time=7517816873
+mem_heap_B=903579113
+mem_heap_extra_B=179119
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=8011802210
+mem_heap_B=903641977
+mem_heap_extra_B=187751
+mem_stacks_B=0
+heap_tree=detailed
+n3: 903641977 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 836163328 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 836163328 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 836163328 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 836163328 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 836163328 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 836163328 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 836163328 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 836163328 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52260208 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52260208 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52260208 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52260208 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52260208 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52260208 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52260208 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52260208 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15218441 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=23
+#-----------
+time=8559551987
+mem_heap_B=903920865
+mem_heap_extra_B=165343
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=8998629910
+mem_heap_B=903980385
+mem_heap_extra_B=173023
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=9547490311
+mem_heap_B=904050689
+mem_heap_extra_B=182615
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=9876812645
+mem_heap_B=904091233
+mem_heap_extra_B=188367
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=10206122030
+mem_heap_B=904135873
+mem_heap_extra_B=194127
+mem_stacks_B=0
+heap_tree=detailed
+n3: 904135873 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 836580992 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 836580992 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 836580992 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 836580992 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 836580992 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 836580992 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 836580992 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 836580992 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52286312 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52286312 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52286312 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52286312 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52286312 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52286312 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52286312 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52286312 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15268569 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=28
+#-----------
+time=10753678886
+mem_heap_B=904414761
+mem_heap_extra_B=171719
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=11302528949
+mem_heap_B=904485065
+mem_heap_extra_B=181311
+mem_stacks_B=0
+heap_tree=detailed
+n3: 904485065 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 836998656 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 836998656 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 836998656 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 836998656 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 836998656 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 836998656 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 836998656 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 836998656 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52312416 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52312416 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52312416 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52312416 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52312416 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52312416 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52312416 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52312416 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15173993 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=30
+#-----------
+time=11741600242
+mem_heap_B=904540489
+mem_heap_extra_B=188983
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=12070913395
+mem_heap_B=904585129
+mem_heap_extra_B=194743
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=12618347190
+mem_heap_B=904864265
+mem_heap_extra_B=172367
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=13057399750
+mem_heap_B=904919689
+mem_heap_extra_B=180039
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=13386691218
+mem_heap_B=904964329
+mem_heap_extra_B=185799
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=13803799488
+mem_heap_B=905016777
+mem_heap_extra_B=193087
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=14359728926
+mem_heap_B=905741697
+mem_heap_extra_B=170879
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=14776767436
+mem_heap_B=905798241
+mem_heap_extra_B=178175
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=15193814779
+mem_heap_B=905850689
+mem_heap_extra_B=185463
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=15471848818
+mem_heap_B=905884289
+mem_heap_extra_B=190319
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=15889069386
+mem_heap_B=906145321
+mem_heap_extra_B=165607
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=16445140100
+mem_heap_B=906220713
+mem_heap_extra_B=175335
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=16862201833
+mem_heap_B=906273161
+mem_heap_extra_B=182623
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=17279281474
+mem_heap_B=906325609
+mem_heap_extra_B=189911
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=17835808146
+mem_heap_B=906161937
+mem_heap_extra_B=167751
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=18391856664
+mem_heap_B=906237329
+mem_heap_extra_B=177479
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=18669878399
+mem_heap_B=906270929
+mem_heap_extra_B=182335
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=19225931191
+mem_heap_B=906342225
+mem_heap_extra_B=192055
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=19782119607
+mem_heap_B=908405241
+mem_heap_extra_B=170447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=20338364162
+mem_heap_B=908476537
+mem_heap_extra_B=180167
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=20530487799
+mem_heap_B=908502761
+mem_heap_extra_B=183551
+mem_stacks_B=0
+heap_tree=detailed
+n3: 908502761 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 840757632 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 840757632 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 840757632 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 840757632 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 840757632 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 840757632 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 840757632 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 840757632 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52547352 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52547352 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52547352 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52547352 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52547352 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52547352 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52547352 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52547352 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15197777 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=51
+#-----------
+time=20722641118
+mem_heap_B=908528617
+mem_heap_extra_B=186887
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=20914776895
+mem_heap_B=908550561
+mem_heap_extra_B=190239
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=21106926314
+mem_heap_B=908576601
+mem_heap_extra_B=193599
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=21251764074
+mem_heap_B=912600033
+mem_heap_extra_B=196583
+mem_stacks_B=0
+heap_tree=peak
+n3: 912600033 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 844516608 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 844516608 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 844516608 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 844516608 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 844516608 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 844516608 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 844516608 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 844516608 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52782288 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52782288 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52782288 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52782288 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52782288 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52782288 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52782288 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52782288 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15301137 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=55
+#-----------
+time=21444798236
+mem_heap_B=915054553
+mem_heap_extra_B=168135
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=21636941938
+mem_heap_B=915080593
+mem_heap_extra_B=171495
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=21829103362
+mem_heap_B=915106633
+mem_heap_extra_B=174855
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=22021259270
+mem_heap_B=915132673
+mem_heap_extra_B=178215
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=22213390579
+mem_heap_B=915154617
+mem_heap_extra_B=181567
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=22405554336
+mem_heap_B=915180657
+mem_heap_extra_B=184927
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=22597696782
+mem_heap_B=915206697
+mem_heap_extra_B=188287
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=22789845119
+mem_heap_B=915228641
+mem_heap_extra_B=191639
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=22982012345
+mem_heap_B=915254681
+mem_heap_extra_B=194999
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=23174151434
+mem_heap_B=915038433
+mem_heap_extra_B=166055
+mem_stacks_B=0
+heap_tree=detailed
+n3: 915038433 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 847022592 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 847022592 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 847022592 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 847022592 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 847022592 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 847022592 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 847022592 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 847022592 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52938912 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52938912 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52938912 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52938912 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52938912 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52938912 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52938912 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52938912 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15076929 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=65
+#-----------
+time=23366637987
+mem_heap_B=915064689
+mem_heap_extra_B=169447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=23560109180
+mem_heap_B=915090761
+mem_heap_extra_B=172807
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=23752591003
+mem_heap_B=915117017
+mem_heap_extra_B=176199
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=23946059980
+mem_heap_B=915143089
+mem_heap_extra_B=179559
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=24138540185
+mem_heap_B=915165249
+mem_heap_extra_B=182943
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=24332013039
+mem_heap_B=915191321
+mem_heap_extra_B=186303
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=71
+#-----------
+time=24524487277
+mem_heap_B=915213481
+mem_heap_extra_B=189687
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=72
+#-----------
+time=24717946622
+mem_heap_B=915239553
+mem_heap_extra_B=193047
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=73
+#-----------
+time=24910428542
+mem_heap_B=915265809
+mem_heap_extra_B=196439
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=74
+#-----------
+time=25103806704
+mem_heap_B=915050089
+mem_heap_extra_B=167559
+mem_stacks_B=0
+heap_tree=detailed
+n3: 915050089 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 847022592 0x10001160C: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 847022592 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 847022592 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 847022592 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 847022592 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 847022592 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 847022592 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 847022592 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 52938912 0x1000117A3: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+  n2: 52938912 0x10001190B: PhyloTreeNode::PhyloTreeNode(PLLBufferManager*, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::shared_ptr<PhyloTreeEdge>, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, double, unsigned int, unsigned int) (in ./app/pll-smc)
+   n1: 52938912 0x100010B01: std::__1::shared_ptr<PhyloTreeNode> std::__1::shared_ptr<PhyloTreeNode>::make_shared<PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&>(PLLBufferManager* const&, std::__1::shared_ptr<PhyloTreeEdge>&, std::__1::shared_ptr<PhyloTreeEdge>&, char const (&) [1], double&, unsigned int&, unsigned int&) (in ./app/pll-smc)
+    n1: 52938912 0x100008CA5: PhyloForest::connect(int, int, double) (in ./app/pll-smc)
+     n1: 52938912 0x100006D9F: Particle::propose() (in ./app/pll-smc)
+      n1: 52938912 0x10001D115: propose(std::__1::vector<Particle*, std::__1::allocator<Particle*> >&, unsigned int) (in ./app/pll-smc)
+       n1: 52938912 0x10001C4BD: run_smc(unsigned int, std::__1::vector<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > >, std::__1::allocator<std::__1::pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > > > >) (in ./app/pll-smc)
+        n0: 52938912 0x100001D36: main (in ./app/pll-smc)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 15088585 in 79 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=75
+#-----------
+time=25296310562
+mem_heap_B=915076345
+mem_heap_extra_B=170951
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=76
+#-----------
+time=25489790828
+mem_heap_B=915102417
+mem_heap_extra_B=174311
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=77
+#-----------
+time=25682290194
+mem_heap_B=915128673
+mem_heap_extra_B=177703
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=78
+#-----------
+time=25875781602
+mem_heap_B=915150649
+mem_heap_extra_B=181055
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=79
+#-----------
+time=26068276613
+mem_heap_B=915176905
+mem_heap_extra_B=184447
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=80
+#-----------
+time=26261758505
+mem_heap_B=915202977
+mem_heap_extra_B=187807
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=81
+#-----------
+time=26454255775
+mem_heap_B=915225137
+mem_heap_extra_B=191191
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=82
+#-----------
+time=26647734438
+mem_heap_B=915251209
+mem_heap_extra_B=194551
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=83
+#-----------
+time=26839906458
+mem_heap_B=915229913
+mem_heap_extra_B=196399
+mem_stacks_B=0
+heap_tree=empty
