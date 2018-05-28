@@ -4,6 +4,9 @@ the [PosetSMC](https://www.stat.ubc.ca/~bouchard/PosetSMC/) algorithm with
 likelihood computations performed by
 the [Phylogenetic Likelihood Library](https://github.com/xflouris/libpll).
 
+This project was written as a part of a bachelor thesis by Henrik Lagebrand and
+Isaac Arvestad, supervised by Jens Lagergren at KTH
+
 ## Getting started
 Instructions assume a Unix system with Bash or a similar shell.
 
